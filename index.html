@@ -223,6 +223,35 @@
             background: rgba(201, 162, 39, 0.1);
         }
 
+        /* Background image overlay for Francesca Frost */
+        .landing-side.right .bg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('images/Palazzo Medici Riccardi Florence .jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
+        }
+
+        .landing-side.right .bg-overlay::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.7) 0%, rgba(26, 21, 37, 0.75) 50%, rgba(13, 17, 23, 0.7) 100%);
+        }
+
+        .landing-side.right:hover .bg-overlay {
+            opacity: 1;
+        }
+
         /* Divider */
         .landing-divider {
             position: fixed;
@@ -329,6 +358,7 @@
         <div class="landing-divider"></div>
 
         <a href="frost-house.html" class="landing-side right">
+            <div class="bg-overlay"></div>
             <div class="side-logo">FF</div>
             <span class="landing-pretitle">Romance · Passion · Power</span>
             <h1 class="landing-title">Francesca Frost</h1>
