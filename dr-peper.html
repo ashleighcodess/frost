@@ -3,37 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Katie Peper | Physician, Podcaster, Writer</title>
-    
+    <title>Dr. Katie Peper | Physician, AI Educator, Podcaster</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Pinyon+Script&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --white: #ffffff;
+            --white: #FFFFFF;
             --off-white: #F8F9FA;
-            --light-gray: #f0f2f5;
-            --mid-gray: #e4e6e9;
-            --text-primary: #1a1a1a;
-            --text-secondary: #5f6368;
-            --text-light: #80868b;
-            --accent: #1E73BE;
-            --accent-hover: #1557a0;
-            --accent-light: #e8f2fc;
-            --accent-lighter: #f5f9fd;
-            --border: #e0e0e0;
+            --dark: #0A0A0A;
+            --dark-card: #111113;
+            --dark-border: #1E1E22;
+            --dark-surface: #161618;
+            --text-primary: #0A0A0A;
+            --text-secondary: #6B7280;
+            --text-light: #9CA3AF;
+            --accent: #0066FF;
+            --accent-hover: #0052CC;
+            --accent-tint: #EBF2FF;
+            --accent-glow: rgba(0, 102, 255, 0.4);
+            --accent-glow-strong: rgba(0, 102, 255, 0.6);
+            --border: #E5E7EB;
+            --border-light: #F3F4F6;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -43,26 +40,94 @@
             overflow-x: hidden;
         }
 
+        /* ========== UTILITY ========== */
+        .mono-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger children */
+        .fade-up-stagger > .fade-up:nth-child(1) { transition-delay: 0s; }
+        .fade-up-stagger > .fade-up:nth-child(2) { transition-delay: 0.1s; }
+        .fade-up-stagger > .fade-up:nth-child(3) { transition-delay: 0.2s; }
+
+        /* ========== AI TICKER ========== */
+        .ai-ticker {
+            overflow: hidden;
+            padding: 16px 0;
+            background: var(--off-white);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .ai-ticker-dark {
+            background: var(--dark);
+            border-top: 1px solid var(--dark-border);
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .ticker-track {
+            display: flex;
+            width: max-content;
+            animation: ticker 40s linear infinite;
+        }
+
+        .ticker-track span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            opacity: 0.4;
+            white-space: nowrap;
+            padding: 0 24px;
+        }
+
+        .ai-ticker-dark .ticker-track span {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .ticker-track .ticker-dot {
+            color: var(--accent);
+            opacity: 0.5;
+        }
+
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
         /* ========== HEADER ========== */
         .site-header {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             z-index: 1000;
-            padding: 15px 60px;
+            padding: 16px 60px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid transparent;
             transition: all 0.3s ease;
         }
-
         .site-header.scrolled {
             border-bottom-color: var(--border);
-            box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
         }
 
         .logo {
@@ -71,79 +136,87 @@
             align-items: center;
             gap: 10px;
         }
-
         .logo-mark {
-            width: 36px;
-            height: 36px;
+            width: 34px; height: 34px;
             background: var(--accent);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-radius: 3px;
+            display: flex; align-items: center; justify-content: center;
             color: white;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem; font-weight: 500;
+            letter-spacing: 0.05em;
+            box-shadow: 0 0 12px var(--accent-glow);
         }
-
         .logo-text {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 500;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem; font-weight: 500;
             color: var(--text-primary);
         }
-
-        .main-nav {
-            display: flex;
-            gap: 35px;
+        .header-logo-img {
+            height: 32px;
+            width: auto;
+            display: block;
         }
 
+        .main-nav { display: flex; gap: 32px; }
         .main-nav a {
-            font-size: 0.9rem;
-            font-weight: 400;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem; font-weight: 400;
+            letter-spacing: 0.05em;
             color: var(--text-secondary);
             text-decoration: none;
             transition: color 0.2s ease;
         }
-
-        .main-nav a:hover {
-            color: var(--accent);
-        }
+        .main-nav a:hover { color: var(--accent); }
 
         .nav-toggle {
-            font-size: 0.85rem;
-            font-weight: 500;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem; font-weight: 500;
             color: var(--text-secondary);
             background: transparent;
             border: 1px solid var(--border);
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-decoration: none;
+            padding: 10px 18px; border-radius: 3px;
+            cursor: pointer; transition: all 0.2s ease;
+            text-decoration: none; letter-spacing: 0.02em;
         }
-
         .nav-toggle:hover {
-            border-color: var(--accent);
-            color: var(--accent);
+            border-color: var(--accent); color: var(--accent);
+            box-shadow: 0 0 12px var(--accent-glow);
         }
 
         /* ========== HERO ========== */
         .hero {
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 120px 60px 80px;
-            background: linear-gradient(180deg, var(--accent-lighter) 0%, var(--white) 100%);
+            display: flex; align-items: center;
+            padding: 140px 60px 100px;
+            position: relative; overflow: hidden;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8eeff 30%, #ffffff 70%, #f5f7ff 100%);
+            background-size: 300% 300%;
+            animation: heroGradient 12s ease infinite;
+        }
+
+        @keyframes heroGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Neural network canvas */
+        #neuralCanvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
         }
 
         .hero-content {
             display: grid;
-            grid-template-columns: 1.2fr 1fr;
+            grid-template-columns: 1.3fr 1fr;
             gap: 80px;
             max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
+            margin: 0 auto; width: 100%;
+            position: relative; z-index: 1;
         }
 
         .hero-text {
@@ -152,490 +225,550 @@
             justify-content: center;
         }
 
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--accent-light);
+        .hero-subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem; font-weight: 400;
+            letter-spacing: 0.2em;
             color: var(--accent);
-            font-size: 0.8rem;
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 20px;
-            margin-bottom: 25px;
-            width: fit-content;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            display: flex; align-items: center; gap: 2px;
         }
 
-        .hero-badge svg {
-            width: 16px;
-            height: 16px;
+        /* Blinking cursor */
+        .cursor-blink {
+            display: inline-block;
+            width: 8px; height: 16px;
+            background: var(--accent);
+            margin-left: 4px;
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 4.5vw, 3.5rem);
-            font-weight: 400;
-            line-height: 1.2;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.8rem, 5vw, 4.2rem);
+            font-weight: 700; line-height: 1.08;
             color: var(--text-primary);
-            margin-bottom: 25px;
+            margin-bottom: 28px;
         }
 
-        .hero-subtitle {
-            font-size: 1.15rem;
+        .hero-desc {
+            font-size: 1.1rem;
             color: var(--text-secondary);
-            max-width: 500px;
-            margin-bottom: 35px;
-            line-height: 1.8;
-        }
-
-        .hero-roles {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-
-        .role-tag {
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            padding: 8px 16px;
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: 20px;
+            max-width: 480px;
+            margin-bottom: 40px; line-height: 1.8;
         }
 
         .hero-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: var(--white);
-            background: var(--accent);
-            padding: 14px 28px;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: all 0.2s ease;
+            display: inline-flex; align-items: center; gap: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem; font-weight: 500;
+            color: var(--white); background: var(--accent);
+            padding: 14px 28px; border-radius: 3px;
+            text-decoration: none; transition: all 0.3s ease;
             width: fit-content;
+            box-shadow: 0 0 20px var(--accent-glow);
+            animation: ctaPulse 3s ease-in-out infinite;
         }
-
         .hero-cta:hover {
             background: var(--accent-hover);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(30, 115, 190, 0.3);
+            box-shadow: 0 4px 30px var(--accent-glow-strong);
+        }
+        @keyframes ctaPulse {
+            0%, 100% { box-shadow: 0 0 20px var(--accent-glow); }
+            50% { box-shadow: 0 0 35px var(--accent-glow-strong); }
         }
 
         .hero-visual {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: flex; justify-content: center; align-items: center;
         }
-
         .hero-image-container {
-            position: relative;
-            width: 100%;
-            max-width: 380px;
+            position: relative; width: 100%; max-width: 380px;
         }
-
+        .hero-image-container::before {
+            content: '';
+            position: absolute; width: 100%; height: 100%;
+            background: var(--accent-tint);
+            border: 1px solid var(--accent);
+            border-radius: 2px;
+            top: 16px; left: 16px; z-index: 0;
+            opacity: 0.25;
+        }
         .hero-image {
-            width: 100%;
-            aspect-ratio: 4/5;
-            background: linear-gradient(135deg, var(--light-gray), var(--mid-gray));
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            width: 100%; aspect-ratio: 4/5;
+            background: var(--border-light);
+            border-radius: 2px; border: 1px solid var(--border);
+            overflow: hidden; position: relative; z-index: 1;
+        }
+        .hero-image img {
+            width: 100%; height: 100%; object-fit: cover;
         }
 
-        .hero-image img {
+        /* Geometric accent line */
+        .hero-accent-line {
+            position: absolute;
+            left: -40px; top: 50%;
+            width: 3px; height: 120px;
+            background: var(--accent);
+            transform: translateY(-50%);
+            border-radius: 2px;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        /* ========== SECTION DIVIDER ========== */
+        .section-divider {
+            display: flex; align-items: center; justify-content: center;
+            padding: 0; height: 1px;
+            position: relative; overflow: visible;
+        }
+        .section-divider::before {
+            content: '';
+            position: absolute;
+            width: 80px; height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        /* ========== PODCAST SECTION (DARK) ========== */
+        .podcast-section {
+            padding: 120px 60px;
+            background: var(--dark);
+            position: relative;
+            overflow: hidden;
+        }
+        .podcast-canvas {
+            position: absolute;
+            top: 0; left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 1;
         }
-
-        .image-placeholder {
-            font-size: 0.95rem;
-            color: var(--text-light);
-            text-align: center;
-        }
-
-        .hero-decoration {
-            position: absolute;
-            width: 120px;
-            height: 120px;
-            border: 2px solid var(--accent-light);
-            border-radius: 16px;
-            top: -20px;
-            right: -20px;
-            z-index: -1;
-        }
-
-        /* ========== PODCAST SECTION ========== */
-        .podcast-section {
-            padding: 100px 60px;
-            background: var(--white);
-        }
-
-        .podcast-container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
+        .podcast-container { position: relative; z-index: 1; max-width: 1000px; margin: 0 auto; }
 
         .podcast-logo {
+            display: block;
             max-width: 280px;
             height: auto;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-        }
-
-        .section-label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 15px;
-        }
-
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2rem, 3.5vw, 2.8rem);
-            font-weight: 400;
-            color: var(--text-primary);
-            margin-bottom: 20px;
-        }
-
-        .section-desc {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.8;
-        }
-
-        /* Platform Links */
-        .platform-links {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-bottom: 50px;
-        }
-
-        .platform-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text-primary);
-            text-decoration: none;
-            padding: 12px 20px;
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            transition: all 0.2s ease;
-        }
-
-        .platform-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            box-shadow: 0 2px 8px rgba(30, 115, 190, 0.15);
-        }
-
-        .platform-btn svg {
-            width: 18px;
-            height: 18px;
-            opacity: 0.7;
-        }
-
-        /* Episodes List */
-        .episodes-list {
-            background: var(--off-white);
-            border-radius: 16px;
-            padding: 10px;
-        }
-
-        .episodes-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            font-weight: 400;
-            color: var(--text-primary);
-            margin: 20px 25px 15px;
-        }
-
-        .episode-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 18px;
-            padding: 20px 25px;
-            background: var(--white);
-            border-radius: 12px;
-            margin-bottom: 8px;
-            transition: all 0.2s ease;
-        }
-
-        .episode-item:hover {
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .episode-item:last-of-type {
-            margin-bottom: 0;
-        }
-
-        .play-btn {
-            flex-shrink: 0;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: var(--accent);
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-decoration: none;
-        }
-
-        .play-btn svg {
-            fill: white;
-            margin-left: 2px;
-            width: 18px;
-            height: 18px;
-        }
-
-        .play-btn:hover {
-            background: var(--accent-hover);
-            transform: scale(1.08);
-            box-shadow: 0 4px 15px rgba(30, 115, 190, 0.35);
-        }
-
-        .episode-content {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .episode-meta {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 6px;
-        }
-
-        .episode-tag {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            color: var(--accent);
-            background: var(--accent-light);
-            padding: 4px 10px;
+            margin: 16px auto 20px;
             border-radius: 4px;
         }
 
-        .episode-duration {
-            font-size: 0.8rem;
-            color: var(--text-light);
+        .section-header { margin-bottom: 60px; }
+        .section-header.centered { text-align: center; }
+
+        .podcast-section .section-title,
+        .podcast-section .section-desc,
+        .podcast-section .mono-label,
+        .podcast-section .episodes-header {
+            /* dark mode text overrides */
+        }
+        .podcast-section .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            font-weight: 600; color: var(--white);
+            margin-top: 12px; margin-bottom: 16px; line-height: 1.2;
+        }
+        .podcast-section .section-desc {
+            font-size: 1.05rem; color: rgba(255,255,255,0.5);
+            max-width: 560px; line-height: 1.8;
+        }
+        .podcast-section .section-header.centered .section-desc {
+            margin: 0 auto;
+        }
+        .podcast-section .mono-label { color: var(--accent); }
+        .podcast-section .episodes-header { color: rgba(255,255,255,0.3); }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            font-weight: 600; color: var(--text-primary);
+            margin-top: 12px; margin-bottom: 16px; line-height: 1.2;
+        }
+        .section-desc {
+            font-size: 1.05rem; color: var(--text-secondary);
+            max-width: 560px; line-height: 1.8;
+        }
+        .section-header.centered .section-desc { margin: 0 auto; }
+
+        /* Spotify Embed */
+        .spotify-embed {
+            margin-bottom: 50px; border-radius: 4px; overflow: hidden;
         }
 
-        .episode-content h5 {
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            font-weight: 500;
-            line-height: 1.4;
-            margin-bottom: 6px;
+        /* Platform Links (dark) */
+        .platform-links {
+            display: flex; align-items: center; gap: 10px;
+            flex-wrap: wrap; margin-bottom: 50px;
         }
+        .platform-links.centered { justify-content: center; }
 
-        .episode-content h5 a {
-            color: var(--text-primary);
+        .podcast-section .platform-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem; font-weight: 400;
+            color: rgba(255,255,255,0.5);
             text-decoration: none;
-            transition: color 0.2s ease;
+            padding: 10px 16px;
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 3px; transition: all 0.2s ease;
+        }
+        .podcast-section .platform-btn:hover {
+            border-color: var(--accent); color: var(--accent);
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+        .podcast-section .platform-btn svg { width: 16px; height: 16px; opacity: 0.5; }
+
+        /* Episode Cards (dark) */
+        .episodes-list {
+            display: flex; flex-direction: column; gap: 3px;
+        }
+        .episodes-header {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem; font-weight: 500;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            color: var(--text-light); margin-bottom: 16px;
         }
 
-        .episode-content h5 a:hover {
+        .episode-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 3px; padding: 24px 28px;
+            transition: all 0.3s ease;
+            position: relative; overflow: hidden;
+        }
+        .episode-card::before {
+            content: '';
+            position: absolute; left: 0; top: 0; bottom: 0;
+            width: 0px; background: var(--accent);
+            transition: width 0.2s ease;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+        .episode-card:hover {
+            background: #FFFFFF;
+            border-color: var(--accent);
+            box-shadow: 0 2px 20px rgba(0, 102, 255, 0.12);
+        }
+        .episode-card:hover .episode-number,
+        .episode-card:hover .episode-title,
+        .episode-card:hover .episode-desc,
+        .episode-card:hover .episode-meta span,
+        .episode-card:hover .episode-duration {
+            color: var(--text-primary);
+        }
+        .episode-card:hover .share-btn {
             color: var(--accent);
+            border-color: var(--accent);
         }
+        .episode-card:hover::before { width: 3px; }
 
-        .episode-content p {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
+        .episode-top {
+            display: flex; align-items: flex-start;
+            justify-content: space-between; gap: 16px; margin-bottom: 6px;
+        }
+        .episode-info { flex: 1; min-width: 0; }
+        .episode-meta {
+            display: flex; align-items: center; gap: 12px; margin-bottom: 6px;
+        }
+        .episode-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem; font-weight: 500;
+            color: var(--accent);
+            background: rgba(0, 102, 255, 0.1);
+            padding: 3px 8px; border-radius: 2px;
+        }
+        .episode-duration {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem; color: rgba(255,255,255,0.3);
+        }
+        .episode-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem; font-weight: 500;
+            line-height: 1.4; color: rgba(255,255,255,0.9); margin-bottom: 4px;
+        }
+        .episode-desc {
+            font-size: 0.88rem; color: rgba(255,255,255,0.4); line-height: 1.6;
         }
 
         .episode-actions {
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            flex-shrink: 0; display: flex; align-items: center; gap: 6px;
         }
-
         .share-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            background: transparent;
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: var(--text-light);
-            transition: all 0.2s ease;
+            width: 34px; height: 34px; border-radius: 3px;
+            background: transparent; border: 1px solid var(--dark-border);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; color: rgba(255,255,255,0.3); transition: all 0.2s ease;
         }
-
         .share-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            background: var(--accent-light);
+            border-color: var(--accent); color: var(--accent);
+        }
+        .share-btn svg { width: 14px; height: 14px; }
+
+        /* Custom Audio Player (dark) */
+        .audio-player {
+            display: flex; align-items: center; gap: 12px;
+            margin-top: 12px; padding: 8px 0;
+        }
+        .audio-play-btn {
+            width: 36px; height: 36px;
+            border-radius: 50%; background: var(--accent);
+            border: none; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.2s ease; flex-shrink: 0;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+        .audio-play-btn:hover {
+            background: var(--accent-hover);
+            transform: scale(1.08);
+            box-shadow: 0 0 25px var(--accent-glow-strong);
+        }
+        .audio-play-btn svg { fill: white; width: 14px; height: 14px; }
+        .audio-play-btn .pause-icon { display: none; }
+        .audio-play-btn.playing .play-icon { display: none; }
+        .audio-play-btn.playing .pause-icon { display: block; }
+
+        .audio-progress-container {
+            flex: 1; display: flex; align-items: center; gap: 10px;
+        }
+        .audio-progress-bar {
+            flex: 1; height: 3px;
+            background: var(--dark-border);
+            border-radius: 2px; cursor: pointer;
+            position: relative; overflow: hidden;
+        }
+        .audio-progress-fill {
+            height: 100%; background: var(--accent);
+            border-radius: 2px; width: 0%;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 6px var(--accent-glow);
+        }
+        .audio-time {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem; color: rgba(255,255,255,0.3);
+            min-width: 36px; text-align: right;
         }
 
-        .share-btn svg {
-            width: 16px;
-            height: 16px;
+        /* Waveform visualizer */
+        .waveform-container {
+            display: flex; align-items: flex-end; gap: 2px;
+            height: 20px; margin-left: 8px;
         }
-
-        .episodes-cta {
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        .btn-outline {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--accent);
-            background: transparent;
-            border: 1px solid var(--accent);
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: all 0.2s ease;
-        }
-
-        .btn-outline:hover {
+        .waveform-bar {
+            width: 3px;
             background: var(--accent);
-            color: white;
+            border-radius: 1px;
+            opacity: 0.3;
+            height: 4px;
+            transition: height 0.15s ease;
+        }
+        .waveform-container.active .waveform-bar {
+            opacity: 0.8;
+            animation: waveform 0.6s ease-in-out infinite alternate;
+        }
+        .waveform-container.active .waveform-bar:nth-child(1) { animation-delay: 0s; }
+        .waveform-container.active .waveform-bar:nth-child(2) { animation-delay: 0.1s; }
+        .waveform-container.active .waveform-bar:nth-child(3) { animation-delay: 0.05s; }
+        .waveform-container.active .waveform-bar:nth-child(4) { animation-delay: 0.15s; }
+        .waveform-container.active .waveform-bar:nth-child(5) { animation-delay: 0.08s; }
+        .waveform-container.active .waveform-bar:nth-child(6) { animation-delay: 0.12s; }
+        .waveform-container.active .waveform-bar:nth-child(7) { animation-delay: 0.03s; }
+
+        @keyframes waveform {
+            0% { height: 4px; }
+            100% { height: 18px; }
         }
 
-        /* ========== TOPICS ========== */
-        .topics-section {
-            padding: 100px 60px;
-            background: var(--off-white);
+        .episodes-cta { text-align: center; margin-top: 40px; }
+
+        .podcast-section .btn-outline {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem; font-weight: 500;
+            color: var(--accent); background: transparent;
+            border: 1px solid var(--accent);
+            padding: 12px 24px; border-radius: 3px;
+            text-decoration: none; transition: all 0.2s ease;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .podcast-section .btn-outline:hover {
+            background: var(--accent); color: white;
+            box-shadow: 0 0 20px var(--accent-glow);
         }
 
-        .topics-container {
-            max-width: 1000px;
-            margin: 0 auto;
+        /* ========== AREAS OF FOCUS ========== */
+        .focus-section {
+            padding: 120px 60px; background: var(--off-white);
+        }
+        .focus-container { max-width: 1000px; margin: 0 auto; }
+
+        .focus-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 20px; margin-top: 50px;
+        }
+        .focus-card {
+            padding: 32px 28px; background: var(--white);
+            border-radius: 3px; border: 1px solid var(--border);
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative; overflow: hidden;
+        }
+        .focus-card::before {
+            content: '';
+            position: absolute; left: 0; top: 0; bottom: 0;
+            width: 0px; background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        .focus-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0, 102, 255, 0.1);
+            border-color: var(--accent);
+        }
+        .focus-card:hover::before { width: 4px; }
+
+        .focus-card-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem; font-weight: 500;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            color: var(--accent); margin-bottom: 14px;
+        }
+        .focus-card h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem; font-weight: 600;
+            color: var(--text-primary); margin-bottom: 12px;
+        }
+        .focus-card p {
+            font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7;
         }
 
-        .topics-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-            margin-top: 50px;
+        /* ========== MY DNA — ABOUT ========== */
+        .about-section {
+            padding: 120px 60px; background: var(--white);
+        }
+        .about-container {
+            max-width: 1100px; margin: 0 auto;
+            display: grid; grid-template-columns: 1.4fr 1fr;
+            gap: 80px; align-items: start;
+        }
+        .about-text .mono-label { margin-bottom: 12px; display: block; }
+        .about-text h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            font-weight: 600; color: var(--text-primary);
+            margin-bottom: 24px; line-height: 1.2;
+        }
+        .about-text p {
+            font-size: 1rem; color: var(--text-secondary);
+            line-height: 1.85; margin-bottom: 20px;
         }
 
-        .topic-card {
-            padding: 35px 30px;
-            background: var(--white);
-            border-radius: 12px;
-            border: 1px solid var(--border);
+        .about-sidebar {
+            display: flex; flex-direction: column; gap: 16px;
+        }
+        .about-image {
+            width: 100%; border-radius: 3px; overflow: hidden;
+            border: 1px solid var(--border); margin-bottom: 20px;
+        }
+        .about-image img { width: 100%; height: auto; display: block; }
+
+        /* Animated stat counters */
+        .stat-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+        }
+        .stat-card {
+            padding: 20px 24px;
+            background: var(--accent-tint);
+            border-radius: 3px;
+            border-left: 3px solid var(--accent);
             transition: all 0.3s ease;
         }
-
-        .topic-card:hover {
-            border-color: var(--accent);
-            box-shadow: 0 10px 30px rgba(30, 115, 190, 0.1);
-            transform: translateY(-5px);
+        .stat-card:hover {
+            box-shadow: 0 4px 16px rgba(0, 102, 255, 0.12);
+            transform: translateY(-2px);
         }
-
-        .topic-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--accent-light);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
+        .stat-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.6rem; font-weight: 700;
+            color: var(--accent); margin-bottom: 2px;
+            line-height: 1.2;
         }
-
-        .topic-card h4 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.25rem;
-            font-weight: 500;
-            color: var(--text-primary);
-            margin-bottom: 12px;
-        }
-
-        .topic-card p {
-            font-size: 0.9rem;
+        .stat-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem; font-weight: 400;
+            letter-spacing: 0.1em; text-transform: uppercase;
             color: var(--text-secondary);
-            line-height: 1.7;
+        }
+
+        .credential-card {
+            padding: 16px 20px;
+            background: var(--off-white);
+            border-radius: 3px;
+            border-left: 3px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        .credential-card:hover {
+            border-left-color: var(--accent);
+            background: var(--accent-tint);
+        }
+        .credential-card .credential-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem; font-weight: 600;
+            color: var(--text-primary); margin-bottom: 2px;
+        }
+        .credential-card .credential-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem; font-weight: 400;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--text-secondary);
         }
 
         /* ========== ALSO WRITES AS ========== */
         .also-section {
             padding: 100px 60px;
-            background: var(--text-primary);
+            background: var(--dark);
             text-align: center;
+            position: relative; overflow: hidden;
         }
-
+        .also-section::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
         .also-container {
-            max-width: 700px;
-            margin: 0 auto;
+            max-width: 650px; margin: 0 auto;
+            position: relative; z-index: 1;
         }
-
-        .also-container .section-label {
-            color: rgba(255, 255, 255, 0.5);
+        .also-container .mono-label {
+            color: rgba(255, 255, 255, 0.3); margin-bottom: 16px; display: block;
         }
-
         .also-container h3 {
             font-family: 'Pinyon Script', cursive;
-            font-size: 3.2rem;
-            font-weight: 400;
-            color: #c9a227;
-            margin-bottom: 20px;
+            font-size: 3.2rem; font-weight: 400;
+            color: #c9a227; margin-bottom: 16px;
         }
-
         .also-container p {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 35px;
-            line-height: 1.8;
+            font-size: 1.05rem; color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 32px; line-height: 1.8;
         }
-
         .btn-gold {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: #1a1a1a;
-            background: #c9a227;
-            padding: 14px 28px;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: all 0.2s ease;
+            display: inline-flex; align-items: center; gap: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem; font-weight: 500;
+            color: #0A0A0A; background: #c9a227;
+            padding: 13px 26px; border-radius: 3px;
+            text-decoration: none; transition: all 0.2s ease;
         }
-
         .btn-gold:hover {
-            background: #d4b84a;
-            transform: translateY(-2px);
+            background: #d4b84a; transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(201, 162, 39, 0.3);
         }
 
         /* ========== FOOTER ========== */
@@ -644,341 +777,539 @@
             background: var(--off-white);
             border-top: 1px solid var(--border);
         }
-
         .footer-content {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1.5fr 2fr 1fr;
-            gap: 60px;
+            max-width: 1000px; margin: 0 auto;
+            display: grid; grid-template-columns: 1.5fr 2fr 1fr; gap: 60px;
         }
-
         .footer-brand p {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-top: 15px;
+            font-size: 0.88rem; color: var(--text-secondary);
+            line-height: 1.7; margin-top: 15px;
         }
-
         .footer-nav {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px;
         }
-
         .footer-nav-col h4 {
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--text-primary);
-            margin-bottom: 18px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem; font-weight: 500;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            color: var(--text-primary); margin-bottom: 18px;
         }
-
         .footer-nav-col a {
-            display: block;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            text-decoration: none;
-            margin-bottom: 12px;
-            transition: color 0.2s ease;
+            display: block; font-size: 0.88rem;
+            color: var(--text-secondary); text-decoration: none;
+            margin-bottom: 12px; transition: color 0.2s ease;
         }
-
-        .footer-nav-col a:hover {
-            color: var(--accent);
-        }
+        .footer-nav-col a:hover { color: var(--accent); }
 
         .footer-social {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
+            display: flex; flex-direction: column; align-items: flex-end;
         }
-
         .footer-social h4 {
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--text-primary);
-            margin-bottom: 18px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem; font-weight: 500;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            color: var(--text-primary); margin-bottom: 18px;
         }
-
-        .social-links {
-            display: flex;
-            gap: 10px;
-        }
-
+        .social-links { display: flex; gap: 8px; }
         .social-links a {
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.8rem;
-            font-weight: 500;
+            width: 38px; height: 38px;
+            border: 1px solid var(--border); border-radius: 3px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-secondary); text-decoration: none;
             transition: all 0.2s ease;
         }
-
+        .social-links a svg { width: 16px; height: 16px; }
         .social-links a:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            background: var(--accent-light);
+            border-color: var(--accent); color: var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
         }
 
         .footer-bottom {
-            max-width: 1000px;
-            margin: 40px auto 0;
-            padding-top: 25px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            max-width: 1000px; margin: 40px auto 0;
+            padding-top: 25px; border-top: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
         }
-
-        .footer-bottom p {
-            font-size: 0.8rem;
-            color: var(--text-light);
-        }
-
-        .footer-bottom a {
-            color: var(--text-secondary);
-            text-decoration: none;
-        }
-
-        .footer-bottom a:hover {
-            color: var(--accent);
-        }
+        .footer-bottom p { font-size: 0.78rem; color: var(--text-light); }
+        .footer-bottom a { color: var(--text-secondary); text-decoration: none; }
+        .footer-bottom a:hover { color: var(--accent); }
 
         /* ========== SHARE MODAL ========== */
         .share-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            display: none; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0, 0, 0, 0.5);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
+            backdrop-filter: blur(8px);
+            z-index: 2000; align-items: center; justify-content: center;
         }
-
-        .share-modal.active {
-            display: flex;
-        }
-
+        .share-modal.active { display: flex; }
         .share-modal-content {
-            background: var(--white);
-            border-radius: 16px;
-            padding: 35px;
-            max-width: 400px;
-            width: 90%;
-            position: relative;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            background: var(--white); border-radius: 4px;
+            padding: 35px; max-width: 400px; width: 90%;
+            position: relative; text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
         }
-
         .share-modal-close {
-            position: absolute;
-            top: 15px;
-            right: 18px;
-            background: none;
-            border: none;
-            color: var(--text-light);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.2s ease;
+            position: absolute; top: 15px; right: 18px;
+            background: none; border: none;
+            color: var(--text-light); font-size: 1.5rem;
+            cursor: pointer; transition: color 0.2s ease;
         }
-
-        .share-modal-close:hover {
-            color: var(--text-primary);
-        }
-
+        .share-modal-close:hover { color: var(--text-primary); }
         .share-modal-content h4 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem; font-weight: 600;
+            color: var(--text-primary); margin-bottom: 8px;
+        }
+        .share-modal-content > p {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem; color: var(--accent); margin-bottom: 25px;
+        }
+        .share-options {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+        }
+        .share-option {
+            display: flex; align-items: center; justify-content: center;
+            gap: 8px; padding: 12px 14px;
+            border: 1px solid var(--border); border-radius: 3px;
+            background: transparent; color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem; font-weight: 500;
+            text-decoration: none; cursor: pointer; transition: all 0.2s ease;
+        }
+        .share-option:hover {
+            border-color: var(--accent); background: var(--accent-tint);
+        }
+        .share-option svg { width: 16px; height: 16px; }
+        .copy-success {
+            display: none; margin-top: 18px; padding: 10px;
+            background: var(--accent-tint); color: var(--accent);
+            border-radius: 3px;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+        }
+        .copy-success.show { display: block; }
+
+        /* ========== ASK DR. PEPER ========== */
+        .ask-section {
+            padding: 100px 60px;
+            background: var(--white);
+            position: relative;
+        }
+        .ask-container { max-width: 700px; margin: 0 auto; text-align: center; }
+        .ask-container .mono-label { margin-bottom: 12px; display: block; }
+        .ask-container h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.8rem, 3vw, 2.4rem);
+            font-weight: 600; color: var(--text-primary);
+            margin-bottom: 12px; line-height: 1.2;
+        }
+        .ask-container > p {
+            font-size: 0.95rem; color: var(--text-secondary);
+            margin-bottom: 36px; line-height: 1.7;
+        }
+        .ask-input-wrap {
+            position: relative;
+            max-width: 560px;
+            margin: 0 auto 28px;
+        }
+        .ask-input {
+            width: 100%;
+            padding: 18px 54px 18px 24px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: var(--text-primary);
+            background: var(--off-white);
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .ask-input::placeholder {
+            color: var(--text-light);
+            font-style: italic;
+        }
+        .ask-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow);
+            background: var(--white);
+        }
+        .ask-search-icon {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent);
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+        .ask-search-icon svg { width: 20px; height: 20px; }
+        .ask-typing-hint {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-light);
+            letter-spacing: 0.05em;
+            margin-bottom: 28px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .ask-typing-hint.visible { opacity: 1; }
+
+        .ask-results {
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            text-align: left;
+        }
+        .ask-results.visible { display: flex; }
+        .ask-result-card {
+            padding: 18px 22px;
+            background: var(--off-white);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .ask-result-card:hover {
+            border-color: var(--accent);
+            background: var(--accent-tint);
+            transform: translateX(4px);
+        }
+        .ask-result-ep {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            white-space: nowrap;
+        }
+        .ask-result-info h5 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .ask-result-info p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .ask-result-play {
+            margin-left: auto;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+        .ask-result-play svg { width: 18px; height: 18px; }
+        .ask-no-results {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        .ask-no-results.visible { display: block; }
+
+        /* ========== AI CONCEPT EXPLORER ========== */
+        .concepts-section {
+            padding: 100px 60px;
+            background: var(--off-white);
+        }
+        .concepts-container { max-width: 1000px; margin: 0 auto; }
+        .concepts-container .section-header { margin-bottom: 50px; }
+
+        .concepts-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .concept-chip {
+            padding: 14px 18px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .concept-chip:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 102, 255, 0.08);
+        }
+        .concept-chip.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+        .concept-chip-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            transition: color 0.3s ease;
+        }
+        .concept-chip.active .concept-chip-label {
+            color: white;
+        }
+        .concept-chip-icon {
             font-size: 1.4rem;
-            font-weight: 400;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .concept-detail {
+            display: none;
+            margin-top: 24px;
+            padding: 32px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            border-radius: 3px;
+            animation: conceptSlideIn 0.3s ease;
+        }
+        .concept-detail.visible { display: block; }
+
+        @keyframes conceptSlideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .concept-detail-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+        .concept-detail-text {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+        .concept-detail-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            color: var(--accent);
+            text-decoration: none;
+            transition: gap 0.2s ease;
+        }
+        .concept-detail-link:hover { gap: 10px; }
+
+        /* ========== AI TIMELINE ========== */
+        .timeline-section {
+            padding: 100px 60px;
+            background: var(--white);
+        }
+        .timeline-container { max-width: 800px; margin: 0 auto; }
+        .timeline-container .section-header { margin-bottom: 60px; }
+
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent), var(--border));
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 40px;
+        }
+        .timeline-item:last-child { padding-bottom: 0; }
+        .timeline-dot {
+            position: absolute;
+            left: -40px;
+            top: 4px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 3px solid var(--accent);
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        .timeline-item:hover .timeline-dot {
+            background: var(--accent);
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+        .timeline-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        .timeline-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
             color: var(--text-primary);
             margin-bottom: 8px;
         }
-
-        .share-modal-content > p {
+        .timeline-desc {
             font-size: 0.9rem;
-            color: var(--accent);
-            margin-bottom: 25px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 10px;
         }
-
-        .share-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .share-option {
-            display: flex;
+        .timeline-episode-link {
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 12px 15px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background: transparent;
-            color: var(--text-primary);
-            font-size: 0.85rem;
+            gap: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
             font-weight: 500;
+            letter-spacing: 0.05em;
+            color: var(--accent);
             text-decoration: none;
-            cursor: pointer;
+            padding: 6px 12px;
+            background: var(--accent-tint);
+            border-radius: 3px;
             transition: all 0.2s ease;
         }
-
-        .share-option:hover {
-            border-color: var(--accent);
-            background: var(--accent-light);
+        .timeline-episode-link:hover {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 2px 12px var(--accent-glow);
         }
 
-        .share-option svg {
-            width: 18px;
-            height: 18px;
+        /* ========== MOBILE MENU ========== */
+        .mobile-menu-btn {
+            display: none; background: none; border: none;
+            cursor: pointer; padding: 8px; z-index: 1001;
+        }
+        .mobile-menu-btn span {
+            display: block; width: 22px; height: 2px;
+            background: var(--text-primary); margin: 5px 0;
+            transition: all 0.3s ease; border-radius: 1px;
+        }
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
         }
 
-        .copy-success {
-            display: none;
-            margin-top: 18px;
-            padding: 12px;
-            background: #d4edda;
-            color: #155724;
-            border-radius: 8px;
-            font-size: 0.9rem;
+        .mobile-menu-overlay {
+            display: none; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 999; flex-direction: column;
+            align-items: center; justify-content: center; gap: 28px;
         }
-
-        .copy-success.show {
-            display: block;
+        .mobile-menu-overlay.active { display: flex; }
+        .mobile-menu-overlay a {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.6rem; font-weight: 500;
+            color: var(--text-primary); text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .mobile-menu-overlay a:hover { color: var(--accent); }
+        .mobile-menu-overlay .mobile-frost-link {
+            margin-top: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem; font-weight: 500;
+            color: var(--accent); border: 1px solid var(--accent);
+            padding: 12px 24px; border-radius: 3px;
         }
 
         /* ========== RESPONSIVE ========== */
         @media (max-width: 1024px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .hero-text {
-                align-items: center;
-            }
-
-            .hero-roles {
-                justify-content: center;
-            }
-
-            .hero-visual {
-                order: -1;
-            }
-
-            .hero-image-container {
-                max-width: 300px;
-            }
-
-            .topics-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .footer-brand {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .footer-nav {
-                justify-items: center;
-            }
-
-            .footer-social {
-                align-items: center;
-            }
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-text { align-items: center; }
+            .hero-subtitle { justify-content: center; }
+            .hero-desc { margin-left: auto; margin-right: auto; }
+            .hero-visual { order: -1; }
+            .hero-image-container { max-width: 300px; }
+            .hero-accent-line { display: none; }
+            .about-container { grid-template-columns: 1fr; gap: 50px; }
+            .about-sidebar { order: -1; }
+            .focus-grid { grid-template-columns: 1fr 1fr; }
+            .footer-content { grid-template-columns: 1fr; text-align: center; }
+            .footer-brand { display: flex; flex-direction: column; align-items: center; }
+            .footer-nav { justify-items: center; }
+            .footer-social { align-items: center; }
         }
 
         @media (max-width: 768px) {
-            .site-header {
-                padding: 15px 25px;
+            .site-header { padding: 15px 24px; }
+            .main-nav { display: none; }
+            .nav-toggle { display: none; }
+            .mobile-menu-btn { display: block; }
+            .hero, .podcast-section, .focus-section, .about-section, .also-section, .ask-section, .concepts-section, .timeline-section {
+                padding: 80px 24px;
             }
-
-            .main-nav {
-                display: none;
-            }
-
-            .hero,
-            .podcast-section,
-            .topics-section,
-            .also-section {
-                padding: 70px 25px;
-            }
-
-            .topics-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .episode-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-
-            .episode-actions {
-                align-self: flex-end;
-            }
-
-            .share-options {
-                grid-template-columns: 1fr;
-            }
-
-            .site-footer {
-                padding: 50px 25px 25px;
-            }
+            .concepts-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero { padding-top: 120px; }
+            .focus-grid { grid-template-columns: 1fr; }
+            .stat-grid { grid-template-columns: 1fr; }
+            .episode-top { flex-direction: column; gap: 10px; }
+            .episode-actions { align-self: flex-end; }
+            .share-options { grid-template-columns: 1fr; }
+            .site-footer { padding: 50px 24px 25px; }
+            .about-container { gap: 40px; }
+            .ai-ticker { display: none; }
         }
     </style>
 </head>
 <body>
 
     <header class="site-header">
-        <a href="dr-peper-embedded.html" class="logo">
-            <div class="logo-mark">KP</div>
-            <span class="logo-text">Dr. Katie Peper</span>
+        <a href="dr-peper.html" class="logo">
+            <img src="images/ShortandsweetAI_transparent_v2.png" alt="Short & Sweet AI" class="header-logo-img">
         </a>
         <nav class="main-nav">
             <a href="#podcast">Podcast</a>
-            <a href="#topics">Topics</a>
+            <a href="#ask">Ask</a>
+            <a href="#concepts">Explore</a>
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
         </nav>
-        <a href="frost-house.html" class="nav-toggle">Francesca Frost →</a>
+        <a href="frost-house.html" class="nav-toggle">Francesca Frost &rarr;</a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
     </header>
 
-    <!-- Hero -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+        <a href="#podcast" onclick="closeMobileMenu()">Podcast</a>
+        <a href="#ask" onclick="closeMobileMenu()">Ask Dr. Peper</a>
+        <a href="#concepts" onclick="closeMobileMenu()">AI Explorer</a>
+        <a href="#about" onclick="closeMobileMenu()">About</a>
+        <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+        <a href="frost-house.html" class="mobile-frost-link">Francesca Frost &rarr;</a>
+    </div>
+
+    <!-- ==================== HERO ==================== -->
     <section class="hero">
+        <canvas id="neuralCanvas"></canvas>
+        <div class="hero-accent-line"></div>
         <div class="hero-content">
             <div class="hero-text">
-                <div class="hero-badge">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                    Physician &amp; AI Educator
-                </div>
-                <h1 class="hero-title">Dr. Katie Peper</h1>
                 <p class="hero-subtitle">
-                    I explore artificial intelligence, futurist medicine, and the ethical questions shaping our tomorrow. Join me for clear, accessible insights you can absorb in minutes.
+                    Physician. AI Educator. Podcaster.<span class="cursor-blink"></span>
                 </p>
-                <div class="hero-roles">
-                    <span class="role-tag">Physician</span>
-                    <span class="role-tag">Podcaster</span>
-                    <span class="role-tag">Writer</span>
-                </div>
+                <h1 class="hero-title">Dr. Katie Peper</h1>
+                <p class="hero-desc">
+                    Board-certified physician translating artificial intelligence, futurist medicine, and the ethical questions shaping our tomorrow into clear, actionable insights anyone can understand.
+                </p>
                 <a href="#podcast" class="hero-cta">
                     Listen to Short &amp; Sweet AI
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -989,26 +1320,60 @@
                     <div class="hero-image">
                         <img src="images/DrKatiePeper.jpeg" alt="Dr. Katie Peper">
                     </div>
-                    <div class="hero-decoration"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Podcast -->
+    <!-- AI Ticker -->
+    <div class="ai-ticker">
+        <div class="ticker-track" id="ticker1">
+            <span>neural networks</span><span class="ticker-dot">/</span>
+            <span>large language models</span><span class="ticker-dot">/</span>
+            <span>machine learning</span><span class="ticker-dot">/</span>
+            <span>computer vision</span><span class="ticker-dot">/</span>
+            <span>reinforcement learning</span><span class="ticker-dot">/</span>
+            <span>natural language processing</span><span class="ticker-dot">/</span>
+            <span>generative ai</span><span class="ticker-dot">/</span>
+            <span>alphafold</span><span class="ticker-dot">/</span>
+            <span>transformer architecture</span><span class="ticker-dot">/</span>
+            <span>nanomedicine</span><span class="ticker-dot">/</span>
+            <span>deep learning</span><span class="ticker-dot">/</span>
+            <span>ai ethics</span><span class="ticker-dot">/</span>
+            <!-- duplicate for seamless loop -->
+            <span>neural networks</span><span class="ticker-dot">/</span>
+            <span>large language models</span><span class="ticker-dot">/</span>
+            <span>machine learning</span><span class="ticker-dot">/</span>
+            <span>computer vision</span><span class="ticker-dot">/</span>
+            <span>reinforcement learning</span><span class="ticker-dot">/</span>
+            <span>natural language processing</span><span class="ticker-dot">/</span>
+            <span>generative ai</span><span class="ticker-dot">/</span>
+            <span>alphafold</span><span class="ticker-dot">/</span>
+            <span>transformer architecture</span><span class="ticker-dot">/</span>
+            <span>nanomedicine</span><span class="ticker-dot">/</span>
+            <span>deep learning</span><span class="ticker-dot">/</span>
+            <span>ai ethics</span><span class="ticker-dot">/</span>
+        </div>
+    </div>
+
+    <!-- ==================== PODCAST (DARK) ==================== -->
     <section class="podcast-section" id="podcast">
+        <canvas class="podcast-canvas" id="podcastCanvas"></canvas>
         <div class="podcast-container">
-            <div class="section-header">
-                <img src="images/Shortandsweetailogo.jpeg" alt="Short & Sweet AI" class="podcast-logo">
-                <p class="section-label">The Podcast</p>
-                <h2 class="section-title">Short &amp; Sweet AI</h2>
-                <p class="section-desc">Each episode breaks down major AI concepts into digestible insights—a flash of understanding you can absorb in minutes.</p>
+            <div class="section-header centered fade-up">
+                <span class="mono-label">Podcast</span>
+                <img src="images/ShortandsweetAI_transparent_v2.png" alt="Short & Sweet AI" class="podcast-logo">
+                <p class="section-desc">Major AI concepts distilled into digestible episodes &mdash; a flash of understanding you can absorb in minutes.</p>
             </div>
-            
-            <div class="platform-links">
+
+            <div class="spotify-embed fade-up">
+                <iframe style="border-radius:4px" src="https://open.spotify.com/embed/show/20ChqLrW6wOSKbK4cDnufw?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+
+            <div class="platform-links centered fade-up">
                 <a href="https://podcasts.apple.com/cz/podcast/short-and-sweet-ai/id1485901155" target="_blank" class="platform-btn">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"/><path d="M12 6c-2.21 0-4 1.79-4 4 0 1.1.45 2.1 1.17 2.83l-.01.01c-.27.27-.45.65-.45 1.03 0 .83.67 1.5 1.5 1.5.38 0 .76-.18 1.03-.45l.01.01c.36-.36.75-.83.75-1.43V10c0-1.1.9-2 2-2s2 .9 2 2v3.5c0 .6.39 1.07.75 1.43l.01-.01c.27.27.65.45 1.03.45.83 0 1.5-.67 1.5-1.5 0-.38-.18-.76-.45-1.03l-.01-.01C16.55 12.1 17 11.1 17 10c0-2.21-1.79-4-4-4z"/><circle cx="12" cy="17" r="1.5"/></svg>
-                    Apple Podcasts
+                    Apple
                 </a>
                 <a href="https://open.spotify.com/show/20ChqLrW6wOSKbK4cDnufw" target="_blank" class="platform-btn">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
@@ -1016,159 +1381,400 @@
                 </a>
                 <a href="https://feeds.captivate.fm/short-and-sweet-ai/" target="_blank" class="platform-btn">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.18 15.64a2.18 2.18 0 1 1 0 4.36 2.18 2.18 0 0 1 0-4.36m.82-8.73v3.27c5.14 0 9.32 4.18 9.32 9.32h3.27c0-6.94-5.65-12.59-12.59-12.59m0-5.27v3.27c9.05 0 16.41 7.36 16.41 16.41h3.27c0-10.86-8.82-19.68-19.68-19.68"/></svg>
-                    RSS Feed
+                    RSS
                 </a>
             </div>
 
-            <div class="episodes-list">
-                <h4 class="episodes-title">Latest Episodes</h4>
-                
-                <div class="episode-item">
-                    <a href="https://drpepermd.com/podcast-2/ep-ishiguros-klara-and-the-sun-reveals-three-rights-and-two-wrongs-about-the-future/" target="_blank" class="play-btn" title="Play Episode">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                    </a>
-                    <div class="episode-content">
-                        <div class="episode-meta">
-                            <span class="episode-tag">Latest</span>
-                            <span class="episode-duration">~8 min</span>
+            <p class="episodes-header fade-up">Featured Episodes</p>
+            <div class="episodes-list fade-up">
+
+                <div class="episode-card">
+                    <div class="episode-top">
+                        <div class="episode-info">
+                            <div class="episode-meta">
+                                <span class="episode-number">EP 51</span>
+                                <span class="episode-duration">~8 min</span>
+                            </div>
+                            <h5 class="episode-title">Ishiguro's Klara and the Sun Reveals Three Rights and Two Wrongs About the Future</h5>
+                            <p class="episode-desc">We all have thoughts of the future. Some of us will only think of it in passing...</p>
                         </div>
-                        <h5><a href="https://drpepermd.com/podcast-2/ep-ishiguros-klara-and-the-sun-reveals-three-rights-and-two-wrongs-about-the-future/" target="_blank">Ishiguro's Klara and the Sun Reveals Three Rights and Two Wrongs About the Future</a></h5>
-                        <p>We all have thoughts of the future. Some of us will only think of it in passing...</p>
+                        <div class="episode-actions">
+                            <button class="share-btn" onclick="shareEpisode('Ishiguro\'s Klara and the Sun', 'https://drpepermd.com/podcast-2/ep-ishiguros-klara-and-the-sun-reveals-three-rights-and-two-wrongs-about-the-future/')" title="Share">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                            </button>
+                        </div>
                     </div>
-                    <div class="episode-actions">
-                        <button class="share-btn" onclick="shareEpisode('Ishiguro\'s Klara and the Sun', 'https://drpepermd.com/podcast-2/ep-ishiguros-klara-and-the-sun-reveals-three-rights-and-two-wrongs-about-the-future/')" title="Share">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                    <div class="audio-player" data-src="https://podcasts.captivate.fm/media/d5ff4dd7-97c2-4615-8221-1ae11e80cf95/ep-51-edited.mp3">
+                        <button class="audio-play-btn" title="Play">
+                            <svg class="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            <svg class="pause-icon" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
                         </button>
+                        <div class="audio-progress-container">
+                            <div class="audio-progress-bar"><div class="audio-progress-fill"></div></div>
+                            <span class="audio-time">0:00</span>
+                        </div>
+                        <div class="waveform-container"><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div></div>
                     </div>
                 </div>
 
-                <div class="episode-item">
-                    <a href="https://drpepermd.com/podcast-2/ep-new-liquid-ai-has-neuroplasticity-like-the-human-brain/" target="_blank" class="play-btn" title="Play Episode">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                    </a>
-                    <div class="episode-content">
-                        <div class="episode-meta">
-                            <span class="episode-tag">AI Research</span>
-                            <span class="episode-duration">~7 min</span>
+                <div class="episode-card">
+                    <div class="episode-top">
+                        <div class="episode-info">
+                            <div class="episode-meta">
+                                <span class="episode-number">EP 50</span>
+                                <span class="episode-duration">~7 min</span>
+                            </div>
+                            <h5 class="episode-title">New 'Liquid' AI Has Neuroplasticity Like the Human Brain</h5>
+                            <p class="episode-desc">What is Liquid AI, and could it prove more effective than other types of AI?</p>
                         </div>
-                        <h5><a href="https://drpepermd.com/podcast-2/ep-new-liquid-ai-has-neuroplasticity-like-the-human-brain/" target="_blank">New 'Liquid' AI Has Neuroplasticity Like the Human Brain</a></h5>
-                        <p>What is Liquid AI, and could it prove more effective than other types of AI?</p>
+                        <div class="episode-actions">
+                            <button class="share-btn" onclick="shareEpisode('Liquid AI Neuroplasticity', 'https://drpepermd.com/podcast-2/ep-new-liquid-ai-has-neuroplasticity-like-the-human-brain/')" title="Share">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                            </button>
+                        </div>
                     </div>
-                    <div class="episode-actions">
-                        <button class="share-btn" onclick="shareEpisode('Liquid AI Neuroplasticity', 'https://drpepermd.com/podcast-2/ep-new-liquid-ai-has-neuroplasticity-like-the-human-brain/')" title="Share">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                    <div class="audio-player" data-src="https://podcasts.captivate.fm/media/022f13fe-87d5-478b-9d43-5fe607ee4dae/ep-50-edited.mp3">
+                        <button class="audio-play-btn" title="Play">
+                            <svg class="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            <svg class="pause-icon" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
                         </button>
+                        <div class="audio-progress-container">
+                            <div class="audio-progress-bar"><div class="audio-progress-fill"></div></div>
+                            <span class="audio-time">0:00</span>
+                        </div>
+                        <div class="waveform-container"><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div></div>
                     </div>
                 </div>
 
-                <div class="episode-item">
-                    <a href="https://drpepermd.com/podcast-2/ep-a-simple-explanation-of-ai/" target="_blank" class="play-btn" title="Play Episode">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                    </a>
-                    <div class="episode-content">
-                        <div class="episode-meta">
-                            <span class="episode-tag">Fundamentals</span>
-                            <span class="episode-duration">~6 min</span>
+                <div class="episode-card">
+                    <div class="episode-top">
+                        <div class="episode-info">
+                            <div class="episode-meta">
+                                <span class="episode-number">EP 49</span>
+                                <span class="episode-duration">~6 min</span>
+                            </div>
+                            <h5 class="episode-title">A Simple Explanation of AI</h5>
+                            <p class="episode-desc">What is AI really, and how does it work? Breaking it down clearly.</p>
                         </div>
-                        <h5><a href="https://drpepermd.com/podcast-2/ep-a-simple-explanation-of-ai/" target="_blank">A Simple Explanation of AI</a></h5>
-                        <p>What is AI really, and how does it work? Breaking it down clearly.</p>
+                        <div class="episode-actions">
+                            <button class="share-btn" onclick="shareEpisode('A Simple Explanation of AI', 'https://drpepermd.com/podcast-2/ep-a-simple-explanation-of-ai/')" title="Share">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                            </button>
+                        </div>
                     </div>
-                    <div class="episode-actions">
-                        <button class="share-btn" onclick="shareEpisode('A Simple Explanation of AI', 'https://drpepermd.com/podcast-2/ep-a-simple-explanation-of-ai/')" title="Share">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                    <div class="audio-player" data-src="https://podcasts.captivate.fm/media/cbd024dc-43a7-4783-a211-1bd710cc7b46/ep-49-edited.mp3">
+                        <button class="audio-play-btn" title="Play">
+                            <svg class="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            <svg class="pause-icon" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
                         </button>
+                        <div class="audio-progress-container">
+                            <div class="audio-progress-bar"><div class="audio-progress-fill"></div></div>
+                            <span class="audio-time">0:00</span>
+                        </div>
+                        <div class="waveform-container"><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div></div>
                     </div>
                 </div>
 
-                <div class="episode-item">
-                    <a href="https://drpepermd.com/podcast-2/ep-microscopic-robots-are-real-and-may-be-flowing-through-your-bloodstream-soon/" target="_blank" class="play-btn" title="Play Episode">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                    </a>
-                    <div class="episode-content">
-                        <div class="episode-meta">
-                            <span class="episode-tag">Future Tech</span>
-                            <span class="episode-duration">~9 min</span>
+                <div class="episode-card">
+                    <div class="episode-top">
+                        <div class="episode-info">
+                            <div class="episode-meta">
+                                <span class="episode-number">EP 48</span>
+                                <span class="episode-duration">~9 min</span>
+                            </div>
+                            <h5 class="episode-title">Microscopic Robots Are Real and May Be Flowing Through Your Bloodstream Soon</h5>
+                            <p class="episode-desc">Microscopic robots might sound like science fiction, but they're very real.</p>
                         </div>
-                        <h5><a href="https://drpepermd.com/podcast-2/ep-microscopic-robots-are-real-and-may-be-flowing-through-your-bloodstream-soon/" target="_blank">Microscopic Robots Are Real and May Be Flowing Through Your Bloodstream Soon</a></h5>
-                        <p>Microscopic robots might sound like science fiction, but they're very real.</p>
+                        <div class="episode-actions">
+                            <button class="share-btn" onclick="shareEpisode('Microscopic Robots', 'https://drpepermd.com/podcast-2/ep-microscopic-robots-are-real-and-may-be-flowing-through-your-bloodstream-soon/')" title="Share">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                            </button>
+                        </div>
                     </div>
-                    <div class="episode-actions">
-                        <button class="share-btn" onclick="shareEpisode('Microscopic Robots', 'https://drpepermd.com/podcast-2/ep-microscopic-robots-are-real-and-may-be-flowing-through-your-bloodstream-soon/')" title="Share">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                    <div class="audio-player" data-src="https://podcasts.captivate.fm/media/0ba6ffe4-06f0-4d7e-9f28-3f5aff0a75af/ep-48-edited.mp3">
+                        <button class="audio-play-btn" title="Play">
+                            <svg class="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            <svg class="pause-icon" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
                         </button>
+                        <div class="audio-progress-container">
+                            <div class="audio-progress-bar"><div class="audio-progress-fill"></div></div>
+                            <span class="audio-time">0:00</span>
+                        </div>
+                        <div class="waveform-container"><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div></div>
                     </div>
                 </div>
 
-                <div class="episode-item">
-                    <a href="https://drpepermd.com/podcast-2/ep-alphafold-the-protein-folding-problem/" target="_blank" class="play-btn" title="Play Episode">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                    </a>
-                    <div class="episode-content">
-                        <div class="episode-meta">
-                            <span class="episode-tag">AI + Medicine</span>
-                            <span class="episode-duration">~8 min</span>
+                <div class="episode-card">
+                    <div class="episode-top">
+                        <div class="episode-info">
+                            <div class="episode-meta">
+                                <span class="episode-number">EP 45</span>
+                                <span class="episode-duration">~8 min</span>
+                            </div>
+                            <h5 class="episode-title">AlphaFold &amp; The Protein Folding Problem</h5>
+                            <p class="episode-desc">The problem that left researchers stuck for nearly 50 years &mdash; solved.</p>
                         </div>
-                        <h5><a href="https://drpepermd.com/podcast-2/ep-alphafold-the-protein-folding-problem/" target="_blank">AlphaFold &amp; The Protein Folding Problem</a></h5>
-                        <p>The problem that left researchers stuck for nearly 50 years—solved.</p>
+                        <div class="episode-actions">
+                            <button class="share-btn" onclick="shareEpisode('AlphaFold Protein Folding', 'https://drpepermd.com/podcast-2/ep-alphafold-the-protein-folding-problem/')" title="Share">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                            </button>
+                        </div>
                     </div>
-                    <div class="episode-actions">
-                        <button class="share-btn" onclick="shareEpisode('AlphaFold Protein Folding', 'https://drpepermd.com/podcast-2/ep-alphafold-the-protein-folding-problem/')" title="Share">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                    <div class="audio-player" data-src="https://podcasts.captivate.fm/media/95dd007d-d637-4dc2-90f7-dc97d69f0331/ep-45-edited.mp3">
+                        <button class="audio-play-btn" title="Play">
+                            <svg class="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            <svg class="pause-icon" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
                         </button>
+                        <div class="audio-progress-container">
+                            <div class="audio-progress-bar"><div class="audio-progress-fill"></div></div>
+                            <span class="audio-time">0:00</span>
+                        </div>
+                        <div class="waveform-container"><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div><div class="waveform-bar"></div></div>
                     </div>
                 </div>
+
             </div>
 
-            <div class="episodes-cta">
-                <a href="https://drpepermd.com/podcast-2/" target="_blank" class="btn-outline">View All Episodes →</a>
+            <div class="episodes-cta fade-up">
+                <a href="https://drpepermd.com/podcast-2/" target="_blank" class="btn-outline">View All Episodes &rarr;</a>
             </div>
         </div>
     </section>
 
-    <!-- Topics -->
-    <section class="topics-section" id="topics">
-        <div class="topics-container">
-            <div class="section-header">
-                <p class="section-label">Areas of Exploration</p>
-                <h2 class="section-title">What I Write About</h2>
+    <!-- AI Ticker (dark) -->
+    <div class="ai-ticker ai-ticker-dark">
+        <div class="ticker-track" style="animation-direction: reverse;">
+            <span>exponential medicine</span><span class="ticker-dot">/</span>
+            <span>protein folding</span><span class="ticker-dot">/</span>
+            <span>genomics</span><span class="ticker-dot">/</span>
+            <span>microscopic robots</span><span class="ticker-dot">/</span>
+            <span>neuroplasticity</span><span class="ticker-dot">/</span>
+            <span>ai diagnostics</span><span class="ticker-dot">/</span>
+            <span>gene editing</span><span class="ticker-dot">/</span>
+            <span>liquid neural networks</span><span class="ticker-dot">/</span>
+            <span>ai safety</span><span class="ticker-dot">/</span>
+            <span>futurist medicine</span><span class="ticker-dot">/</span>
+            <span>crispr</span><span class="ticker-dot">/</span>
+            <span>brain-computer interface</span><span class="ticker-dot">/</span>
+            <!-- duplicate -->
+            <span>exponential medicine</span><span class="ticker-dot">/</span>
+            <span>protein folding</span><span class="ticker-dot">/</span>
+            <span>genomics</span><span class="ticker-dot">/</span>
+            <span>microscopic robots</span><span class="ticker-dot">/</span>
+            <span>neuroplasticity</span><span class="ticker-dot">/</span>
+            <span>ai diagnostics</span><span class="ticker-dot">/</span>
+            <span>gene editing</span><span class="ticker-dot">/</span>
+            <span>liquid neural networks</span><span class="ticker-dot">/</span>
+            <span>ai safety</span><span class="ticker-dot">/</span>
+            <span>futurist medicine</span><span class="ticker-dot">/</span>
+            <span>crispr</span><span class="ticker-dot">/</span>
+            <span>brain-computer interface</span><span class="ticker-dot">/</span>
+        </div>
+    </div>
+
+    <!-- ==================== ASK DR. PEPER ==================== -->
+    <section class="ask-section" id="ask">
+        <div class="ask-container fade-up">
+            <span class="mono-label">AI Search</span>
+            <h2>Ask Dr. Peper</h2>
+            <p>Curious about an AI topic? Type a question or keyword and find the episode where Dr. Peper breaks it down.</p>
+            <div class="ask-input-wrap">
+                <input type="text" class="ask-input" id="askInput" placeholder="Try &quot;protein folding&quot; or &quot;how does AI work&quot;..." autocomplete="off">
+                <div class="ask-search-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </div>
             </div>
-            <div class="topics-grid">
-                <div class="topic-card">
-                    <div class="topic-icon">🧠</div>
+            <div class="ask-typing-hint" id="askHint">Searching episodes...</div>
+            <div class="ask-results" id="askResults"></div>
+            <div class="ask-no-results" id="askNoResults">No matching episodes found. Try a different keyword!</div>
+        </div>
+    </section>
+
+    <!-- ==================== AI CONCEPT EXPLORER ==================== -->
+    <section class="concepts-section" id="concepts">
+        <div class="concepts-container">
+            <div class="section-header centered fade-up">
+                <span class="mono-label">Knowledge Base</span>
+                <h2 class="section-title">AI Concept Explorer</h2>
+            </div>
+            <div class="concepts-grid fade-up" id="conceptsGrid">
+                <div class="concept-chip" data-concept="llm">
+                    <span class="concept-chip-icon">&#9672;</span>
+                    <span class="concept-chip-label">Large Language Models</span>
+                </div>
+                <div class="concept-chip" data-concept="alphafold">
+                    <span class="concept-chip-icon">&#9670;</span>
+                    <span class="concept-chip-label">AlphaFold</span>
+                </div>
+                <div class="concept-chip" data-concept="nanobots">
+                    <span class="concept-chip-icon">&#9674;</span>
+                    <span class="concept-chip-label">Microscopic Robots</span>
+                </div>
+                <div class="concept-chip" data-concept="liquidai">
+                    <span class="concept-chip-icon">&#9679;</span>
+                    <span class="concept-chip-label">Liquid AI</span>
+                </div>
+                <div class="concept-chip" data-concept="neural">
+                    <span class="concept-chip-icon">&#10038;</span>
+                    <span class="concept-chip-label">Neural Networks</span>
+                </div>
+                <div class="concept-chip" data-concept="geneediting">
+                    <span class="concept-chip-icon">&#9683;</span>
+                    <span class="concept-chip-label">Gene Editing</span>
+                </div>
+                <div class="concept-chip" data-concept="ethics">
+                    <span class="concept-chip-icon">&#9670;</span>
+                    <span class="concept-chip-label">AI Ethics</span>
+                </div>
+                <div class="concept-chip" data-concept="genomics">
+                    <span class="concept-chip-icon">&#10070;</span>
+                    <span class="concept-chip-label">Genomics</span>
+                </div>
+            </div>
+            <div class="concept-detail" id="conceptDetail"></div>
+        </div>
+    </section>
+
+    <!-- ==================== AI TIMELINE ==================== -->
+    <section class="timeline-section">
+        <div class="timeline-container">
+            <div class="section-header centered fade-up">
+                <span class="mono-label">AI Coverage</span>
+                <h2 class="section-title">Topics She's Tracked</h2>
+            </div>
+            <div class="timeline fade-up">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Episode 51</div>
+                    <div class="timeline-title">Ishiguro's Klara and the Sun</div>
+                    <div class="timeline-desc">How a Nobel laureate's novel about an AI companion got three things right and two things wrong about where we're actually headed.</div>
+                    <a href="https://drpepermd.com/podcast-2/ep-ishiguros-klara-and-the-sun-reveals-three-rights-and-two-wrongs-about-the-future/" target="_blank" class="timeline-episode-link">Listen &rarr;</a>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Episode 50</div>
+                    <div class="timeline-title">Liquid AI &amp; Neuroplasticity</div>
+                    <div class="timeline-desc">MIT's breakthrough: neural networks that can adapt and rewire themselves in real time, mimicking the brain's own plasticity.</div>
+                    <a href="https://drpepermd.com/podcast-2/ep-new-liquid-ai-has-neuroplasticity-like-the-human-brain/" target="_blank" class="timeline-episode-link">Listen &rarr;</a>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Episode 49</div>
+                    <div class="timeline-title">A Simple Explanation of AI</div>
+                    <div class="timeline-desc">Cutting through the noise to explain what artificial intelligence actually is, how it works, and why it matters &mdash; in plain language.</div>
+                    <a href="https://drpepermd.com/podcast-2/ep-a-simple-explanation-of-ai/" target="_blank" class="timeline-episode-link">Listen &rarr;</a>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Episode 48</div>
+                    <div class="timeline-title">Microscopic Robots Are Real</div>
+                    <div class="timeline-desc">They sound like science fiction, but nanobots are already being tested in labs &mdash; and may soon be flowing through your bloodstream.</div>
+                    <a href="https://drpepermd.com/podcast-2/ep-microscopic-robots-are-real-and-may-be-flowing-through-your-bloodstream-soon/" target="_blank" class="timeline-episode-link">Listen &rarr;</a>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Episode 45</div>
+                    <div class="timeline-title">AlphaFold &amp; the Protein Folding Problem</div>
+                    <div class="timeline-desc">The 50-year grand challenge of biology, solved by DeepMind's AI in a matter of days &mdash; unlocking the future of drug discovery.</div>
+                    <a href="https://drpepermd.com/podcast-2/ep-alphafold-the-protein-folding-problem/" target="_blank" class="timeline-episode-link">Listen &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== AREAS OF FOCUS ==================== -->
+    <section class="focus-section" id="focus">
+        <div class="focus-container">
+            <div class="section-header centered fade-up">
+                <span class="mono-label">Areas of Focus</span>
+                <h2 class="section-title">What I Cover</h2>
+            </div>
+            <div class="focus-grid fade-up-stagger">
+                <div class="focus-card fade-up">
+                    <p class="focus-card-label">01</p>
                     <h4>Artificial Intelligence</h4>
-                    <p>From machine learning fundamentals to breakthrough innovations, making AI accessible to everyone.</p>
+                    <p>From neural networks to large language models, translating the mechanics of AI into language that sticks &mdash; no jargon required.</p>
                 </div>
-                <div class="topic-card">
-                    <div class="topic-icon">🔬</div>
+                <div class="focus-card fade-up">
+                    <p class="focus-card-label">02</p>
                     <h4>Futurist Medicine</h4>
-                    <p>Where healthcare meets technology—exploring innovations reshaping how we heal and thrive.</p>
+                    <p>Nanobots, gene editing, AI diagnostics &mdash; the technologies already reshaping how we prevent, detect, and treat disease.</p>
                 </div>
-                <div class="topic-card">
-                    <div class="topic-icon">⚖️</div>
-                    <h4>Ethical Dilemmas</h4>
-                    <p>The hard questions that arise when technology outpaces our frameworks for right and wrong.</p>
+                <div class="focus-card fade-up">
+                    <p class="focus-card-label">03</p>
+                    <h4>Ethics &amp; Society</h4>
+                    <p>The hard questions that emerge when technology outpaces our frameworks for right and wrong, and why they matter now.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Also Writes As -->
-    <section class="also-section" id="about">
-        <div class="also-container">
-            <p class="section-label">Also Writes As</p>
+    <!-- Section Divider -->
+    <div class="section-divider"></div>
+
+    <!-- ==================== MY DNA — ABOUT ==================== -->
+    <section class="about-section" id="about">
+        <div class="about-container">
+            <div class="about-text fade-up">
+                <span class="mono-label">My DNA</span>
+                <h2>Medicine Meets Machine Intelligence</h2>
+                <p>
+                    Dr. Kathryn Peper is a board-certified internal medicine physician who has spent her career at the intersection of science and education. After earning her B.A. in Biology and Psychology from Skidmore College &mdash; graduating with distinction and election to Phi Beta Kappa &mdash; she conducted immunology research at Yale School of Medicine before completing her M.D. at New York Medical College.
+                </p>
+                <p>
+                    For 15 years she taught internal medicine at Morristown Memorial Hospital, earning recognition as a Fellow of the American College of Physicians for superior competence, professional accomplishment, and demonstrated leadership. Her private practice focuses on geriatric and end-of-life care.
+                </p>
+                <p>
+                    Today, she channels that same drive for clarity into <em>Short &amp; Sweet AI</em>, making artificial intelligence and futurist medicine accessible to everyone. She stays on the frontier by attending conferences in Exponential Medicine, Genomics, Medicine X, and MIT Hacking Medicine.
+                </p>
+            </div>
+            <div class="about-sidebar fade-up">
+                <div class="about-image">
+                    <img src="images/banner2.png" alt="Dr. Katie Peper">
+                </div>
+                <div class="stat-grid" id="statGrid">
+                    <div class="stat-card">
+                        <div class="stat-value" data-target="15">0</div>
+                        <div class="stat-label">Years Teaching</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" data-target="50">0</div>
+                        <div class="stat-label">Podcast Episodes</div>
+                    </div>
+                </div>
+                <div class="credential-card">
+                    <div class="credential-value">Phi Beta Kappa</div>
+                    <div class="credential-label">Honor Society</div>
+                </div>
+                <div class="credential-card">
+                    <div class="credential-value">Yale School of Medicine</div>
+                    <div class="credential-label">Immunology Research</div>
+                </div>
+                <div class="credential-card">
+                    <div class="credential-value">Fellow, ACP</div>
+                    <div class="credential-label">American College of Physicians</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ALSO WRITES AS ==================== -->
+    <section class="also-section">
+        <div class="also-container fade-up">
+            <span class="mono-label">Also Writes As</span>
             <h3>Francesca Frost</h3>
             <p>
-                Under the pen name Francesca Frost, I publish bold fiction where ambition meets desire. My debut novel, <em>The Crypto King's Muse</em>, explores power, passion, and the dangerous game of falling for the wrong person.
+                Under the pen name Francesca Frost, bold fiction where ambition meets desire. Debut novel <em>The Crypto King's Muse</em> explores power, passion, and the dangerous game of falling for the wrong person.
             </p>
-            <a href="frost-house.html" class="btn-gold">Visit Frost House →</a>
+            <a href="frost-house.html" class="btn-gold">Visit Frost House &rarr;</a>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- ==================== FOOTER ==================== -->
     <footer class="site-footer" id="contact">
         <div class="footer-content">
             <div class="footer-brand">
-                <a href="dr-peper-embedded.html" class="logo">
+                <a href="dr-peper.html" class="logo">
                     <div class="logo-mark">KP</div>
                     <span class="logo-text">Dr. Katie Peper</span>
                 </a>
@@ -1178,9 +1784,9 @@
                 <div class="footer-nav-col">
                     <h4>Explore</h4>
                     <a href="#podcast">Podcast</a>
-                    <a href="#topics">Topics</a>
+                    <a href="#ask">Ask Dr. Peper</a>
+                    <a href="#concepts">AI Explorer</a>
                     <a href="#about">About</a>
-                    <a href="#contact">Contact</a>
                 </div>
                 <div class="footer-nav-col">
                     <h4>Also Visit</h4>
@@ -1192,13 +1798,23 @@
             <div class="footer-social">
                 <h4>Connect</h4>
                 <div class="social-links">
-                    <a href="https://twitter.com/drpepermd" target="_blank" title="Twitter/X">X</a>
-                    <a href="https://www.linkedin.com/in/kathrynpepermd/" target="_blank" title="LinkedIn">LI</a>
+                    <a href="https://instagram.com/doctorpepermd/" target="_blank" title="Instagram">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                    <a href="https://twitter.com/drpepermd" target="_blank" title="Twitter/X">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/kathrynpepermd" target="_blank" title="LinkedIn">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="https://www.doximity.com/pub/kathryn-peper-md" target="_blank" title="Doximity">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.568 9.2h-2.862c.156.54.243 1.11.243 1.7 0 3.474-2.826 6.3-6.3 6.3-.474 0-.936-.054-1.38-.153A3.987 3.987 0 019.6 19.2c2.211 0 4.2-.9 5.64-2.355A8.959 8.959 0 0017.568 9.2zM8.65 15.6c2.706 0 4.9-2.194 4.9-4.9s-2.194-4.9-4.9-4.9S3.75 8 3.75 10.7s2.194 4.9 4.9 4.9z"/></svg>
+                    </a>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2025 Dr. Katie Peper. All Rights Reserved.</p>
+            <p>&copy; 2026 Dr. Katie Peper. All Rights Reserved.</p>
             <p><a href="#">Privacy Policy</a></p>
         </div>
     </footer>
@@ -1206,7 +1822,7 @@
     <!-- Share Modal -->
     <div class="share-modal" id="shareModal">
         <div class="share-modal-content">
-            <button class="share-modal-close" onclick="closeShareModal()">×</button>
+            <button class="share-modal-close" onclick="closeShareModal()">&times;</button>
             <h4>Share this episode</h4>
             <p id="shareEpisodeTitle"></p>
             <div class="share-options">
@@ -1232,33 +1848,180 @@
     </div>
 
     <script>
+        // ========== Neural Network Canvas ==========
+        const canvas = document.getElementById('neuralCanvas');
+        const ctx = canvas.getContext('2d');
+        let nodes = [];
+        const NODE_COUNT = 50;
+        const CONNECTION_DIST = 150;
+
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.offsetWidth;
+            canvas.height = canvas.parentElement.offsetHeight;
+        }
+
+        function initNodes() {
+            nodes = [];
+            for (let i = 0; i < NODE_COUNT; i++) {
+                nodes.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4,
+                    r: Math.random() * 2 + 1
+                });
+            }
+        }
+
+        function drawNetwork() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw connections
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < CONNECTION_DIST) {
+                        const opacity = (1 - dist / CONNECTION_DIST) * 0.15;
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.strokeStyle = `rgba(0, 102, 255, ${opacity})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // Draw & move nodes
+            for (const node of nodes) {
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.r, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 102, 255, 0.25)';
+                ctx.fill();
+
+                node.x += node.vx;
+                node.y += node.vy;
+
+                if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+                if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+            }
+
+            requestAnimationFrame(drawNetwork);
+        }
+
+        resizeCanvas();
+        initNodes();
+        drawNetwork();
+        window.addEventListener('resize', () => { resizeCanvas(); initNodes(); });
+
+        // ========== Podcast Data Stream Canvas ==========
+        const pCanvas = document.getElementById('podcastCanvas');
+        const pCtx = pCanvas.getContext('2d');
+        const streams = [];
+        const STREAM_COUNT = 35;
+        const chars = '01';
+
+        function resizePodcastCanvas() {
+            const section = document.getElementById('podcast');
+            pCanvas.width = section.offsetWidth;
+            pCanvas.height = section.offsetHeight;
+        }
+
+        function initStreams() {
+            streams.length = 0;
+            for (let i = 0; i < STREAM_COUNT; i++) {
+                streams.push({
+                    x: Math.random() * pCanvas.width,
+                    y: Math.random() * pCanvas.height,
+                    speed: Math.random() * 1.5 + 0.5,
+                    chars: Array.from({length: Math.floor(Math.random() * 14) + 5}, () => chars[Math.floor(Math.random() * chars.length)]),
+                    opacity: Math.random() * 0.15 + 0.1,
+                    fontSize: Math.random() * 4 + 11,
+                    changeTimer: 0
+                });
+            }
+        }
+
+        function drawStreams() {
+            pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+
+            for (const s of streams) {
+                for (let j = 0; j < s.chars.length; j++) {
+                    const charY = s.y + j * (s.fontSize + 4);
+                    if (charY < -20 || charY > pCanvas.height + 20) continue;
+
+                    const isHead = j === s.chars.length - 1;
+                    const fade = 1 - (j / s.chars.length) * 0.6;
+
+                    pCtx.font = `${s.fontSize}px "JetBrains Mono", monospace`;
+
+                    if (isHead) {
+                        pCtx.fillStyle = `rgba(80, 170, 255, ${Math.min(s.opacity * 3.5, 0.95)})`;
+                        pCtx.shadowColor = 'rgba(80, 170, 255, 0.8)';
+                        pCtx.shadowBlur = 12;
+                    } else {
+                        pCtx.fillStyle = `rgba(0, 128, 255, ${s.opacity * fade})`;
+                        pCtx.shadowColor = 'transparent';
+                        pCtx.shadowBlur = 0;
+                    }
+                    pCtx.fillText(s.chars[j], s.x, charY);
+                    pCtx.shadowBlur = 0;
+                }
+
+                s.y += s.speed;
+
+                s.changeTimer++;
+                if (s.changeTimer > 15) {
+                    s.changeTimer = 0;
+                    const idx = Math.floor(Math.random() * s.chars.length);
+                    s.chars[idx] = chars[Math.floor(Math.random() * chars.length)];
+                }
+
+                if (s.y > pCanvas.height + s.chars.length * (s.fontSize + 4)) {
+                    s.y = -s.chars.length * (s.fontSize + 4);
+                    s.x = Math.random() * pCanvas.width;
+                }
+            }
+
+            requestAnimationFrame(drawStreams);
+        }
+
+        // Wait for layout to be ready before sizing canvas
+        window.addEventListener('load', () => {
+            resizePodcastCanvas();
+            initStreams();
+            drawStreams();
+        });
+        window.addEventListener('resize', () => { resizePodcastCanvas(); initStreams(); });
+
+        // ========== Scroll Header ==========
         const header = document.querySelector('.site-header');
         window.addEventListener('scroll', () => {
             header.classList.toggle('scrolled', window.scrollY > 50);
         });
 
+        // ========== Smooth Scroll ==========
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
 
+        // ========== Share Modal ==========
         let currentShareUrl = '';
         let currentShareTitle = '';
 
         function shareEpisode(title, url) {
             currentShareUrl = url;
             currentShareTitle = title;
-            
             document.getElementById('shareEpisodeTitle').textContent = title;
             document.getElementById('shareTwitter').href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title + ' - Short & Sweet AI')}&url=${encodeURIComponent(url)}`;
             document.getElementById('shareFacebook').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
             document.getElementById('shareLinkedIn').href = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
-            
             document.getElementById('shareModal').classList.add('active');
         }
 
@@ -1270,19 +2033,248 @@
         function copyLink() {
             navigator.clipboard.writeText(currentShareUrl).then(() => {
                 document.getElementById('copySuccess').classList.add('show');
-                setTimeout(() => {
-                    document.getElementById('copySuccess').classList.remove('show');
-                }, 2000);
+                setTimeout(() => document.getElementById('copySuccess').classList.remove('show'), 2000);
             });
         }
 
         document.getElementById('shareModal').addEventListener('click', function(e) {
             if (e.target === this) closeShareModal();
         });
-
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') closeShareModal();
         });
+
+        // ========== Mobile Menu ==========
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mobileMenuOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileMenuOverlay.classList.contains('active') ? 'hidden' : '';
+        });
+
+        function closeMobileMenu() {
+            mobileMenuBtn.classList.remove('active');
+            mobileMenuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // ========== Custom Audio Players + Waveform ==========
+        let currentAudio = null;
+        let currentBtn = null;
+        let currentWaveform = null;
+
+        document.querySelectorAll('.audio-player').forEach(player => {
+            const btn = player.querySelector('.audio-play-btn');
+            const progressBar = player.querySelector('.audio-progress-bar');
+            const progressFill = player.querySelector('.audio-progress-fill');
+            const timeDisplay = player.querySelector('.audio-time');
+            const waveform = player.querySelector('.waveform-container');
+            const src = player.dataset.src;
+            let audio = null;
+
+            function formatTime(seconds) {
+                if (isNaN(seconds)) return '0:00';
+                const mins = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return mins + ':' + (secs < 10 ? '0' : '') + secs;
+            }
+
+            function initAudio() {
+                if (!audio) {
+                    audio = new Audio(src);
+                    audio.preload = 'metadata';
+
+                    audio.addEventListener('timeupdate', () => {
+                        if (audio.duration) {
+                            const pct = (audio.currentTime / audio.duration) * 100;
+                            progressFill.style.width = pct + '%';
+                            timeDisplay.textContent = formatTime(audio.currentTime);
+                        }
+                    });
+
+                    audio.addEventListener('ended', () => {
+                        btn.classList.remove('playing');
+                        if (waveform) waveform.classList.remove('active');
+                        progressFill.style.width = '0%';
+                        timeDisplay.textContent = '0:00';
+                        currentAudio = null;
+                        currentBtn = null;
+                        currentWaveform = null;
+                    });
+
+                    audio.addEventListener('loadedmetadata', () => {
+                        timeDisplay.textContent = formatTime(audio.duration);
+                    });
+                }
+                return audio;
+            }
+
+            btn.addEventListener('click', () => {
+                const a = initAudio();
+
+                if (currentAudio && currentAudio !== a) {
+                    currentAudio.pause();
+                    currentAudio.currentTime = 0;
+                    if (currentBtn) currentBtn.classList.remove('playing');
+                    if (currentWaveform) currentWaveform.classList.remove('active');
+                }
+
+                if (a.paused) {
+                    a.play();
+                    btn.classList.add('playing');
+                    if (waveform) waveform.classList.add('active');
+                    currentAudio = a;
+                    currentBtn = btn;
+                    currentWaveform = waveform;
+                } else {
+                    a.pause();
+                    btn.classList.remove('playing');
+                    if (waveform) waveform.classList.remove('active');
+                    currentAudio = null;
+                    currentBtn = null;
+                    currentWaveform = null;
+                }
+            });
+
+            progressBar.addEventListener('click', (e) => {
+                const a = initAudio();
+                if (a.duration) {
+                    const rect = progressBar.getBoundingClientRect();
+                    const pct = (e.clientX - rect.left) / rect.width;
+                    a.currentTime = pct * a.duration;
+                }
+            });
+        });
+
+        // ========== Ask Dr. Peper Search ==========
+        const episodeData = [
+            { ep: 'EP 51', title: "Ishiguro's Klara and the Sun", desc: 'AI companions, solar energy, consciousness and what a Nobel laureate got right and wrong about the future.', keywords: 'klara sun ishiguro ai companion robot consciousness fiction novel future solar', url: 'https://drpepermd.com/podcast-2/ep-ishiguros-klara-and-the-sun-reveals-three-rights-and-two-wrongs-about-the-future/' },
+            { ep: 'EP 50', title: 'Liquid AI & Neuroplasticity', desc: 'MIT\'s new neural networks that adapt in real time, mimicking the brain\'s ability to rewire itself.', keywords: 'liquid ai neuroplasticity brain neural network mit adapt rewire plasticity', url: 'https://drpepermd.com/podcast-2/ep-new-liquid-ai-has-neuroplasticity-like-the-human-brain/' },
+            { ep: 'EP 49', title: 'A Simple Explanation of AI', desc: 'What AI actually is, how it works, machine learning basics — explained clearly for everyone.', keywords: 'ai artificial intelligence explain simple basics how works machine learning beginner introduction what is', url: 'https://drpepermd.com/podcast-2/ep-a-simple-explanation-of-ai/' },
+            { ep: 'EP 48', title: 'Microscopic Robots', desc: 'Nanobots that could flow through your bloodstream — where the science stands today.', keywords: 'nanobot microscopic robot tiny small blood medicine drug delivery nano technology', url: 'https://drpepermd.com/podcast-2/ep-microscopic-robots-are-real-and-may-be-flowing-through-your-bloodstream-soon/' },
+            { ep: 'EP 45', title: 'AlphaFold & Protein Folding', desc: 'DeepMind\'s AI solved biology\'s 50-year grand challenge, transforming drug discovery forever.', keywords: 'alphafold protein folding deepmind google biology drug discovery structure prediction', url: 'https://drpepermd.com/podcast-2/ep-alphafold-the-protein-folding-problem/' },
+        ];
+
+        const askInput = document.getElementById('askInput');
+        const askResults = document.getElementById('askResults');
+        const askNoResults = document.getElementById('askNoResults');
+        const askHint = document.getElementById('askHint');
+
+        askInput.addEventListener('input', () => {
+            const q = askInput.value.toLowerCase().trim();
+            askHint.classList.toggle('visible', q.length > 0);
+            if (q.length < 2) {
+                askResults.classList.remove('visible');
+                askNoResults.classList.remove('visible');
+                return;
+            }
+            const terms = q.split(/\s+/);
+            const matches = episodeData.filter(ep => {
+                const searchable = (ep.title + ' ' + ep.desc + ' ' + ep.keywords).toLowerCase();
+                return terms.some(t => searchable.includes(t));
+            });
+            if (matches.length > 0) {
+                askResults.innerHTML = matches.map(ep => `
+                    <a href="${ep.url}" target="_blank" class="ask-result-card">
+                        <span class="ask-result-ep">${ep.ep}</span>
+                        <div class="ask-result-info">
+                            <h5>${ep.title}</h5>
+                            <p>${ep.desc}</p>
+                        </div>
+                        <div class="ask-result-play">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </a>
+                `).join('');
+                askResults.classList.add('visible');
+                askNoResults.classList.remove('visible');
+            } else {
+                askResults.classList.remove('visible');
+                askNoResults.classList.add('visible');
+            }
+        });
+
+        // ========== AI Concept Explorer ==========
+        const conceptData = {
+            llm: { title: 'Large Language Models', text: 'LLMs like GPT and Claude are AI systems trained on vast amounts of text to understand and generate human language. They work by predicting the most likely next word in a sequence, but at scale this creates remarkably sophisticated reasoning and communication abilities. Dr. Peper breaks down how these models actually work — no PhD required.', link: 'https://drpepermd.com/podcast-2/ep-a-simple-explanation-of-ai/', linkText: 'Listen: A Simple Explanation of AI →' },
+            alphafold: { title: 'AlphaFold & Protein Folding', text: 'For 50 years, scientists struggled to predict how proteins fold into their 3D shapes — a key to understanding diseases and designing drugs. DeepMind\'s AlphaFold AI cracked this problem, predicting the structure of over 200 million proteins with remarkable accuracy. It\'s one of AI\'s most concrete contributions to science.', link: 'https://drpepermd.com/podcast-2/ep-alphafold-the-protein-folding-problem/', linkText: 'Listen: AlphaFold Episode →' },
+            nanobots: { title: 'Microscopic Robots', text: 'Nanobots are tiny machines — some smaller than a blood cell — designed to operate inside the human body. They can deliver drugs directly to tumors, clear blocked arteries, or perform surgery at the cellular level. What once sounded like science fiction is already in clinical testing.', link: 'https://drpepermd.com/podcast-2/ep-microscopic-robots-are-real-and-may-be-flowing-through-your-bloodstream-soon/', linkText: 'Listen: Microscopic Robots →' },
+            liquidai: { title: 'Liquid Neural Networks', text: 'Developed at MIT, liquid neural networks are a new type of AI architecture inspired by the worm\'s nervous system. Unlike traditional neural networks with fixed connections, liquid networks can adapt their parameters over time — giving them a form of neuroplasticity similar to the human brain.', link: 'https://drpepermd.com/podcast-2/ep-new-liquid-ai-has-neuroplasticity-like-the-human-brain/', linkText: 'Listen: Liquid AI Episode →' },
+            neural: { title: 'Neural Networks', text: 'Inspired by the brain, neural networks are layers of interconnected nodes that process information. Each connection has a weight that adjusts as the network learns from data. They\'re the foundation of modern AI — from image recognition to language models to self-driving cars.', link: 'https://drpepermd.com/podcast-2/ep-a-simple-explanation-of-ai/', linkText: 'Listen: How AI Works →' },
+            geneediting: { title: 'Gene Editing & CRISPR', text: 'CRISPR-Cas9 is a molecular tool that lets scientists edit DNA with precision — cutting, replacing, or modifying genes to treat genetic diseases, enhance crops, and even engineer new organisms. Combined with AI for target prediction, it\'s accelerating what\'s possible in medicine.', link: 'https://drpepermd.com/podcast-2/', linkText: 'Explore All Episodes →' },
+            ethics: { title: 'AI Ethics & Society', text: 'As AI systems become more powerful, the ethical questions multiply: Who\'s responsible when an AI makes a harmful decision? How do we prevent bias in training data? Should AI have rights? Dr. Peper explores the tension between innovation and the frameworks we need to keep it in check.', link: 'https://drpepermd.com/podcast-2/', linkText: 'Explore All Episodes →' },
+            genomics: { title: 'Genomics & Precision Medicine', text: 'Genomics is the study of our complete DNA. Combined with AI, it\'s enabling personalized medicine — treatments tailored to your unique genetic makeup. From predicting disease risk to designing targeted therapies, AI-powered genomics is rewriting the playbook for healthcare.', link: 'https://drpepermd.com/podcast-2/', linkText: 'Explore All Episodes →' },
+        };
+
+        const conceptsGrid = document.getElementById('conceptsGrid');
+        const conceptDetail = document.getElementById('conceptDetail');
+
+        conceptsGrid.addEventListener('click', (e) => {
+            const chip = e.target.closest('.concept-chip');
+            if (!chip) return;
+            const key = chip.dataset.concept;
+            const data = conceptData[key];
+            if (!data) return;
+
+            // Toggle active
+            const wasActive = chip.classList.contains('active');
+            conceptsGrid.querySelectorAll('.concept-chip').forEach(c => c.classList.remove('active'));
+
+            if (wasActive) {
+                conceptDetail.classList.remove('visible');
+                return;
+            }
+
+            chip.classList.add('active');
+            conceptDetail.innerHTML = `
+                <div class="concept-detail-title">${data.title}</div>
+                <div class="concept-detail-text">${data.text}</div>
+                <a href="${data.link}" target="_blank" class="concept-detail-link">${data.linkText}</a>
+            `;
+            conceptDetail.classList.add('visible');
+        });
+
+        // ========== Scroll Animations ==========
+        const fadeEls = document.querySelectorAll('.fade-up');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        fadeEls.forEach(el => observer.observe(el));
+
+        // ========== Animated Stat Counters ==========
+        let statsCounted = false;
+        const statObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !statsCounted) {
+                    statsCounted = true;
+                    document.querySelectorAll('.stat-value[data-target]').forEach(el => {
+                        const target = parseInt(el.dataset.target);
+                        let current = 0;
+                        const increment = target / 40;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                el.textContent = target + '+';
+                                clearInterval(timer);
+                            } else {
+                                el.textContent = Math.floor(current) + '+';
+                            }
+                        }, 30);
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+
+        const statGrid = document.getElementById('statGrid');
+        if (statGrid) statObserver.observe(statGrid);
     </script>
 
 </body>
