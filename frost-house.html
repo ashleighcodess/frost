@@ -438,7 +438,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            transform: translateX(-60px);
+        }
+
+        @keyframes book-float {
+            0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+            50% { transform: translate(-50%, -50%) translateY(-8px); }
         }
 
         @keyframes gold-pulse {
@@ -489,8 +493,8 @@
             cursor: pointer;
             position: relative;
             perspective: 1800px;
-            width: 550px;
-            height: 720px;
+            width: 650px;
+            height: 850px;
         }
 
         .book-reveal {
@@ -509,6 +513,7 @@
             width: 130%;
             z-index: 5;
             transition: opacity 0.4s ease;
+            animation: book-float 4s ease-in-out infinite;
         }
 
         .book-reveal-cover img {
@@ -530,14 +535,14 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 320px;
-            height: 460px;
-            margin-top: -230px;
-            margin-left: -160px;
+            width: 380px;
+            height: 545px;
+            margin-top: -272px;
+            margin-left: -190px;
             transform-origin: left center;
             transform-style: preserve-3d;
             backface-visibility: hidden;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             border-radius: 0 2px 2px 0;
             opacity: 0;
             pointer-events: none;
@@ -582,6 +587,7 @@
         .book-showcase.open .book-reveal-cover {
             opacity: 0;
             pointer-events: none;
+            animation: none;
         }
 
         .book-showcase.open .book-turning-page {
@@ -620,9 +626,9 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(0.96);
-            width: 380px;
-            height: 560px;
+            transform: translate(-50%, -50%) scale(0.92);
+            width: 450px;
+            height: 660px;
             background: radial-gradient(ellipse at 50% 30%, #1a1218 0%, #0e0b0d 40%, #080608 100%);
             padding: 55px 50px 60px;
             opacity: 0;
@@ -973,7 +979,7 @@
         .parallax-divider .parallax-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(10, 10, 10, 0.7);
+            background: rgba(10, 10, 10, 0.45);
         }
 
         .parallax-divider .parallax-content {
@@ -1013,7 +1019,7 @@
         }
 
         .parallax-texture .parallax-overlay {
-            background: rgba(10, 10, 10, 0.85);
+            background: rgba(10, 10, 10, 0.5);
         }
 
         .parallax-texture .parallax-content {
@@ -1043,7 +1049,7 @@
         }
 
         .parallax-lily .parallax-overlay {
-            background: rgba(10, 10, 10, 0.82);
+            background: rgba(10, 10, 10, 0.45);
         }
 
         /* iOS parallax fallback */
@@ -1276,21 +1282,19 @@
 
         .social-media-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(3, 1fr);
             gap: 60px;
             margin-top: 60px;
         }
 
         /* Book Trailer */
         .trailer-area {
-            grid-column: 1 / -1;
         }
 
         .trailer-video {
             width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            aspect-ratio: 16/9;
+            aspect-ratio: 9/16;
+            max-height: 500px;
             position: relative;
             overflow: hidden;
             border: 1px solid rgba(201, 162, 39, 0.12);
@@ -1314,11 +1318,10 @@
 
         .trailer-placeholder {
             width: 100%;
-            aspect-ratio: 16/9;
-            max-width: 800px;
-            margin: 0 auto;
+            aspect-ratio: 9/16;
+            max-height: 500px;
             background: linear-gradient(135deg, #111 0%, var(--navy) 50%, #111 100%);
-            border: 1px solid rgba(201, 162, 39, 0.15);
+            border: 2px dashed rgba(201, 162, 39, 0.25);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -1375,6 +1378,7 @@
         }
 
         /* Instagram Grid */
+        .trailer-area h4,
         .ig-area h4,
         .tiktok-area h4 {
             font-family: 'Marcellus', serif;
@@ -1388,6 +1392,7 @@
             gap: 10px;
         }
 
+        .trailer-area h4 svg,
         .ig-area h4 svg,
         .tiktok-area h4 svg {
             width: 18px;
@@ -1850,6 +1855,23 @@
                 margin: 0 auto;
             }
 
+            .book-showcase {
+                width: 450px;
+                height: 590px;
+            }
+
+            .book-turning-page {
+                width: 280px;
+                height: 400px;
+                margin-top: -200px;
+                margin-left: -140px;
+            }
+
+            .book-reveal-page {
+                width: 330px;
+                height: 485px;
+            }
+
             .thoughts-grid {
                 grid-template-columns: 1fr 1fr;
             }
@@ -1925,12 +1947,26 @@
                 width: 350px;
             }
 
+            .book-showcase {
+                width: 320px;
+                height: 420px;
+            }
+
+            .book-turning-page {
+                width: 200px;
+                height: 290px;
+                margin-top: -145px;
+                margin-left: -100px;
+            }
+
             .book-reveal {
                 width: 320px;
                 height: 430px;
             }
 
             .book-reveal-page {
+                width: 280px;
+                height: 380px;
                 padding: 35px 30px 40px 35px;
             }
 
@@ -1972,6 +2008,12 @@
                 text-align: center;
             }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            .book-reveal-cover {
+                animation: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1990,7 +2032,6 @@
             <a href="#contact" onclick="closeMobileMenu()">Contact</a>
         </nav>
         <div class="mobile-menu-cta">
-            <a href="dr-peper.html" class="nav-toggle" onclick="closeMobileMenu()">Dr. Peper &rarr;</a>
         </div>
     </div>
 
@@ -2010,7 +2051,6 @@
             <span></span>
             <span></span>
         </button>
-        <a href="dr-peper.html" class="nav-toggle">Dr. Peper &rarr;</a>
     </header>
 
     <!-- Hero -->
@@ -2080,7 +2120,7 @@
                 <h2>About</h2>
                 <h3>Francesca Frost</h3>
                 <p>
-                    Frost House is the author imprint where Dr. Katie Peper publishes fiction under the pen name Francesca Frost. Here, ambition, power, and high-stakes drama meet unforgettable characters and immersive storytelling.
+                    Frost House is the author imprint of Francesca Frost. Here, ambition, power, and high-stakes drama meet unforgettable characters and immersive storytelling.
                 </p>
                 <span class="about-gold-ornament"></span>
                 <p>
@@ -2171,11 +2211,18 @@
                 <h3>Follow the Story</h3>
             </div>
             <div class="social-media-grid">
-                <!-- Book Ambient Video -->
+                <!-- Book Trailer -->
                 <div class="trailer-area scroll-reveal">
-                    <div class="trailer-video trailer-ambient">
-                        <iframe src="https://iframe.mediadelivery.net/embed/598854/9a3008cd-3135-4f9f-b375-e1bef01cd4bc?autoplay=true&loop=true&muted=true&preload=true&controls=false&t=1" loading="lazy" style="border:0; position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none;" allow="accelerometer; gyroscope; autoplay; encrypted-media;"></iframe>
-                        <div class="trailer-ambient-overlay"></div>
+                    <h4>
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><polygon points="5,3 19,12 5,21"/></svg>
+                        Book Trailer
+                    </h4>
+                    <div class="trailer-placeholder">
+                        <div class="trailer-play-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+                        </div>
+                        <span class="trailer-text">Book Trailer Coming Soon</span>
+                        <span class="trailer-subtext">Stay tuned</span>
                     </div>
                 </div>
 
@@ -2326,11 +2373,6 @@
                     <a href="#contact">Contact</a>
                     <a href="#">Press Kit</a>
                     <a href="#">Newsletter</a>
-                </div>
-                <div class="footer-nav-col">
-                    <h4>Also Visit</h4>
-                    <a href="dr-peper.html">Dr. Katie Peper</a>
-                    <a href="dr-peper.html#podcast">Short & Sweet AI</a>
                 </div>
             </div>
             <div class="footer-social">
