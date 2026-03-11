@@ -475,12 +475,19 @@
 
         .book-hero-img {
             position: relative;
-            width: 820px;
+            width: 480px;
+            max-width: 90%;
             height: auto;
             filter: drop-shadow(20px 25px 50px rgba(0, 0, 0, 0.6))
                     drop-shadow(0 0 20px rgba(201, 162, 39, 0.08));
             transition: filter 0.5s ease, transform 0.5s ease;
+            animation: hero-book-float 4s ease-in-out infinite;
             z-index: 1;
+        }
+
+        @keyframes hero-book-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .book-hero-img:hover {
@@ -1589,6 +1596,125 @@
         }
 
         /* ========== BEHIND THE PAGES (formerly Thoughts) ========== */
+        /* ========== BOOK EXCERPTS INLINE ========== */
+        .excerpts-section {
+            padding: 100px 60px;
+            background: linear-gradient(180deg, var(--black) 0%, rgba(26, 21, 37, 0.4) 50%, var(--black) 100%);
+        }
+
+        .excerpts-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .excerpts-inline-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .excerpt-inline-card {
+            position: relative;
+            background: rgba(26, 31, 46, 0.3);
+            border: 1px solid rgba(201, 162, 39, 0.1);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+
+        .excerpt-inline-card:hover {
+            border-color: var(--gold-dark);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 30px rgba(201, 162, 39, 0.08);
+        }
+
+        .excerpt-inline-image {
+            width: 100%;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+        }
+
+        .excerpt-inline-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .excerpt-inline-card:hover .excerpt-inline-image img {
+            transform: scale(1.05);
+        }
+
+        .excerpt-inline-label {
+            padding: 24px 20px;
+            text-align: center;
+        }
+
+        .excerpt-inline-label h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 500;
+            font-style: italic;
+            color: var(--cream);
+            margin-bottom: 4px;
+        }
+
+        .excerpt-inline-label span {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            opacity: 0.7;
+        }
+
+        /* Excerpt Lightbox Overlay */
+        .excerpt-lightbox-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            cursor: pointer;
+        }
+
+        .excerpt-lightbox-overlay.active {
+            display: flex;
+            animation: excerptFadeIn 0.3s ease;
+        }
+
+        @keyframes excerptFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .excerpt-lightbox-overlay img {
+            max-width: 90%;
+            max-height: 90vh;
+            object-fit: contain;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+        }
+
+        .excerpt-lightbox-close {
+            position: absolute;
+            top: 24px;
+            right: 30px;
+            font-size: 2rem;
+            color: var(--gold);
+            background: none;
+            border: none;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+            z-index: 10001;
+        }
+
+        .excerpt-lightbox-close:hover { opacity: 1; }
+
         /* ========== INSIDE THE STORY GALLERY ========== */
         .story-gallery-section {
             padding: 100px 60px;
@@ -2057,6 +2183,17 @@
         }
 
         @media (max-width: 768px) {
+            .excerpts-section {
+                padding: 60px 24px;
+            }
+
+            .excerpts-inline-grid {
+                grid-template-columns: 1fr;
+                max-width: 340px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
             .story-gallery-section {
                 padding: 60px 24px;
             }
@@ -2116,7 +2253,7 @@
             }
 
             .book-hero-img {
-                width: 350px;
+                width: 320px;
             }
 
             .book-showcase {
@@ -2198,6 +2335,7 @@
         </div>
         <nav>
             <a href="#book" onclick="closeMobileMenu()">The Book</a>
+            <a href="#excerpts" onclick="closeMobileMenu()">Excerpts</a>
             <a href="#about" onclick="closeMobileMenu()">About</a>
             <a href="#social" onclick="closeMobileMenu()">Connect</a>
             <a href="#ink-stained" onclick="closeMobileMenu()">Ink-Stained</a>
@@ -2213,6 +2351,7 @@
         </a>
         <nav class="main-nav">
             <a href="#book">The Book</a>
+            <a href="#excerpts">Excerpts</a>
             <a href="#about">About</a>
             <a href="#social">Connect</a>
             <a href="#ink-stained">Ink-Stained</a>
@@ -2241,44 +2380,61 @@
                 </p>
                 <a href="#book" class="frost-cta fade-in-delayed">Discover The Crypto King's Muse</a>
             </div>
-            <!--
-            === STATIC BOOK DISPLAY (commented out — showing book reveal instead) ===
             <div class="frost-hero-visual">
                 <div class="book-hero-display">
                     <div class="book-hero-glow"></div>
-                    <img src="images/book-3d-mockup.png" alt="The Crypto King's Muse by Francesca Frost" class="book-hero-img">
-                </div>
-            </div>
-            === END STATIC BOOK DISPLAY ===
-            -->
-
-            <div class="frost-hero-visual">
-                <div class="book-showcase" id="bookShowcase">
-                    <div class="book-reveal">
-                        <div class="book-turning-page book-turning-page-1"><div class="page-front"></div></div>
-                        <div class="book-turning-page book-turning-page-2"><div class="page-front"></div></div>
-                        <div class="book-reveal-page">
-                            <p class="page-chapter">Chapter One</p>
-                            <span class="page-ornament"></span>
-                            <p class="page-title">The Weight of Glass</p>
-                            <div class="page-text">
-                                <p>Charlotte Gordon Lennox had exactly fourteen minutes before the world she'd built came crashing down around her.</p>
-                                <p>She stood at the floor-to-ceiling windows of her corner office on the thirty-second floor, watching the November rain streak across Manhattan like mascara on a beautiful face. Below, Fifth Avenue pulsed with its usual orchestra of yellow cabs and black town cars, all of them carrying people who still had their lives intact.</p>
-                                <p>Her phone buzzed again. The third time in two minutes. She didn't need to look to know it was Marcus, her CFO&mdash;former CFO, she corrected herself, since there was no company left to be chief financial officer of.</p>
-                                <p><em>Fourteen minutes.</em> That was all the time between Charlotte and the meeting that would decide whether she walked out of this building with her dignity or was carried out by security.</p>
-                            </div>
-                            <div class="page-fade"></div>
-                            <span class="page-close-hint">Click to close</span>
-                        </div>
-                        <div class="book-reveal-cover">
-                            <img src="images/book-3d-mockup.png" alt="The Crypto King's Muse by Francesca Frost">
-                        </div>
-                    </div>
-                    <span class="book-reveal-hint">Click to peek inside</span>
+                    <a href="#excerpts">
+                        <img src="images/book-3d-mockup.png" alt="The Crypto King's Muse by Francesca Frost" class="book-hero-img">
+                    </a>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Book Excerpts -->
+    <section class="excerpts-section" id="excerpts">
+        <div class="excerpts-container">
+            <div class="section-header scroll-reveal">
+                <h2>Read a Scene</h2>
+                <h3>Step Inside the Story</h3>
+            </div>
+            <div class="excerpts-inline-grid scroll-reveal">
+                <div class="excerpt-inline-card" onclick="openInlineExcerpt(this)">
+                    <div class="excerpt-inline-image">
+                        <img src="images/excerpt-cant-sleep.png" alt="I Can't Sleep excerpt">
+                    </div>
+                    <div class="excerpt-inline-label">
+                        <h4>&ldquo;I Can&rsquo;t Sleep&rdquo;</h4>
+                        <span>Shadows &amp; Edges</span>
+                    </div>
+                </div>
+                <div class="excerpt-inline-card" onclick="openInlineExcerpt(this)">
+                    <div class="excerpt-inline-image">
+                        <img src="images/excerpt-dirty-sweet.png" alt="Dirty Sweet excerpt">
+                    </div>
+                    <div class="excerpt-inline-label">
+                        <h4>&ldquo;Dirty Sweet&rdquo;</h4>
+                        <span>Private Names</span>
+                    </div>
+                </div>
+                <div class="excerpt-inline-card" onclick="openInlineExcerpt(this)">
+                    <div class="excerpt-inline-image">
+                        <img src="images/excerpt-terrace-downpour.png" alt="Terrace Downpour excerpt">
+                    </div>
+                    <div class="excerpt-inline-label">
+                        <h4>&ldquo;Terrace Downpour&rdquo;</h4>
+                        <span>Rain &amp; Desire</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Excerpt Lightbox -->
+    <div class="excerpt-lightbox-overlay" id="excerptOverlay" onclick="closeInlineExcerpt()">
+        <button class="excerpt-lightbox-close" onclick="closeInlineExcerpt()">&times;</button>
+        <img id="excerptOverlayImg" src="" alt="Excerpt">
+    </div>
 
     <!-- About -->
     <section class="about-section" id="about">
@@ -2730,6 +2886,24 @@
 
         scrollRevealElements.forEach(el => {
             revealObserver.observe(el);
+        });
+
+        // Excerpt lightbox
+        function openInlineExcerpt(card) {
+            var img = card.querySelector('.excerpt-inline-image img');
+            var overlay = document.getElementById('excerptOverlay');
+            document.getElementById('excerptOverlayImg').src = img.src;
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeInlineExcerpt() {
+            document.getElementById('excerptOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeInlineExcerpt();
         });
     </script>
 
