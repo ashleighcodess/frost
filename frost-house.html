@@ -2863,11 +2863,13 @@
             }
         });
 
-        // Book reveal animation
+        // Book reveal animation (if element exists)
         const bookShowcase = document.getElementById('bookShowcase');
-        bookShowcase.addEventListener('click', function() {
-            this.classList.toggle('open');
-        });
+        if (bookShowcase) {
+            bookShowcase.addEventListener('click', function() {
+                this.classList.toggle('open');
+            });
+        }
 
         // Scroll-triggered fade-in animations
         const scrollRevealElements = document.querySelectorAll('.scroll-reveal');
