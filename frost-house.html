@@ -1599,12 +1599,34 @@
         /* ========== BOOK EXCERPTS INLINE ========== */
         .excerpts-section {
             padding: 100px 60px;
-            background: linear-gradient(180deg, var(--black) 0%, rgba(26, 21, 37, 0.4) 50%, var(--black) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .excerpts-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('images/crypto-volatility.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.12;
+            pointer-events: none;
+        }
+
+        .excerpts-section::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(180deg, var(--black) 0%, rgba(10, 10, 10, 0.85) 50%, var(--black) 100%);
+            pointer-events: none;
         }
 
         .excerpts-container {
             max-width: 1000px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .excerpts-inline-grid {
