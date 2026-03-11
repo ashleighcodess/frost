@@ -1052,6 +1052,78 @@
             background: rgba(10, 10, 10, 0.45);
         }
 
+        .parallax-crypto {
+            height: 300px;
+        }
+
+        .parallax-crypto .parallax-bg {
+            background-position: center 30%;
+        }
+
+        .parallax-crypto .parallax-overlay {
+            background: rgba(10, 10, 10, 0.3);
+        }
+
+        /* Florentine Lion Essay */
+        .florentine-lion-essay {
+            max-width: 720px;
+            margin: 60px auto 0;
+            padding: 60px 0 0;
+            border-top: 1px solid rgba(201, 162, 39, 0.15);
+            animation: essayFadeIn 0.6s ease;
+        }
+
+        @keyframes essayFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .essay-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .essay-header h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 3vw, 2.4rem);
+            font-weight: 400;
+            font-style: italic;
+            color: var(--cream);
+            margin-bottom: 8px;
+        }
+
+        .essay-byline {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+            opacity: 0.7;
+        }
+
+        .essay-body p {
+            font-family: 'Crimson Pro', 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            line-height: 1.85;
+            color: rgba(245, 243, 239, 0.85);
+            margin-bottom: 24px;
+            text-indent: 2em;
+        }
+
+        .essay-body p:first-child {
+            text-indent: 0;
+        }
+
+        .essay-body p:first-child::first-letter {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            float: left;
+            line-height: 1;
+            margin: 0 12px 0 0;
+            color: var(--gold);
+            font-weight: 500;
+        }
+
         /* iOS parallax fallback */
         @supports (-webkit-overflow-scrolling: touch) {
             .parallax-divider .parallax-bg {
@@ -1094,7 +1166,7 @@
 
         .book-feature {
             display: grid;
-            grid-template-columns: 380px 1fr;
+            grid-template-columns: 440px 1fr;
             gap: 80px;
             align-items: start;
         }
@@ -1107,18 +1179,13 @@
         .book-feature-cover img {
             width: 100%;
             height: auto;
-            box-shadow:
-                20px 20px 60px rgba(0, 0, 0, 0.5),
-                -5px -5px 20px rgba(201, 162, 39, 0.03);
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            filter: drop-shadow(20px 20px 40px rgba(0, 0, 0, 0.5));
+            transition: transform 0.5s ease, filter 0.5s ease;
         }
 
         .book-feature-cover img:hover {
             transform: scale(1.03);
-            box-shadow:
-                0 25px 80px rgba(0, 0, 0, 0.6),
-                0 0 30px rgba(201, 162, 39, 0.25),
-                0 0 60px rgba(201, 162, 39, 0.1);
+            filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 20px rgba(201, 162, 39, 0.15));
         }
 
         .book-feature-content h4 {
@@ -1521,6 +1588,94 @@
         }
 
         /* ========== BEHIND THE PAGES (formerly Thoughts) ========== */
+        /* ========== INSIDE THE STORY GALLERY ========== */
+        .story-gallery-section {
+            padding: 100px 60px;
+            background: linear-gradient(180deg, var(--dark-navy) 0%, var(--black) 100%);
+        }
+
+        .story-gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .story-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 220px;
+            gap: 16px;
+            margin-top: 50px;
+        }
+
+        .story-gallery-item {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(201, 162, 39, 0.08);
+        }
+
+        .story-gallery-tall {
+            grid-row: span 2;
+        }
+
+        .story-gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .story-gallery-item:hover img {
+            transform: scale(1.06);
+        }
+
+        .story-gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 40px 16px 16px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--cream);
+            opacity: 0;
+            transform: translateY(8px);
+            transition: all 0.4s ease;
+        }
+
+        .story-gallery-item:hover .story-gallery-caption {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .ink-stained-pen {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 24px;
+            border: 1px solid rgba(201, 162, 39, 0.15);
+        }
+
+        .ink-stained-pen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .ink-stained-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            font-style: italic;
+            font-weight: 300;
+            color: var(--gold);
+            opacity: 0.85;
+            max-width: 540px;
+            margin: 16px auto 0;
+            line-height: 1.6;
+        }
+
         .thoughts-section {
             padding: 120px 60px;
             background: var(--black);
@@ -1901,6 +2056,22 @@
         }
 
         @media (max-width: 768px) {
+            .story-gallery-section {
+                padding: 60px 24px;
+            }
+
+            .story-gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-auto-rows: 180px;
+                gap: 10px;
+            }
+
+            .story-gallery-caption {
+                opacity: 1;
+                font-size: 0.75rem;
+                padding: 30px 10px 10px;
+            }
+
             .site-header {
                 padding: 15px 25px;
             }
@@ -2028,7 +2199,7 @@
             <a href="#book" onclick="closeMobileMenu()">The Book</a>
             <a href="#about" onclick="closeMobileMenu()">About</a>
             <a href="#social" onclick="closeMobileMenu()">Connect</a>
-            <a href="#writings" onclick="closeMobileMenu()">Writings</a>
+            <a href="#ink-stained" onclick="closeMobileMenu()">Ink-Stained</a>
             <a href="#contact" onclick="closeMobileMenu()">Contact</a>
         </nav>
         <div class="mobile-menu-cta">
@@ -2043,7 +2214,7 @@
             <a href="#book">The Book</a>
             <a href="#about">About</a>
             <a href="#social">Connect</a>
-            <a href="#writings">Writings</a>
+            <a href="#ink-stained">Ink-Stained</a>
             <a href="#contact">Contact</a>
         </nav>
         <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Open menu">
@@ -2152,7 +2323,9 @@
             </div>
             <div class="book-feature">
                 <div class="book-feature-cover scroll-reveal">
-                    <img src="images/bookcover.png" alt="The Crypto King's Muse by Francesca Frost">
+                    <a href="excerpts.html" title="Read an excerpt">
+                        <img src="images/book-3d-mockup.png" alt="The Crypto King's Muse by Francesca Frost">
+                    </a>
                 </div>
                 <div class="book-feature-content scroll-reveal">
                     <h4>The Crypto King's Muse</h4>
@@ -2192,9 +2365,61 @@
         </div>
     </section>
 
+    <!-- Inside the Story — Visual Gallery -->
+    <section class="story-gallery-section">
+        <div class="story-gallery-container">
+            <div class="section-header scroll-reveal">
+                <h2>Inside the Story</h2>
+                <h3>The World of The Crypto King&rsquo;s Muse</h3>
+            </div>
+            <div class="story-gallery-grid scroll-reveal">
+                <div class="story-gallery-item story-gallery-tall">
+                    <img src="images/met-ball-blue-gown.jpg" alt="Charlotte's sapphire gown at the Met Gala" loading="lazy">
+                    <div class="story-gallery-caption">Charlotte attends the Met Gala in a blue sapphire dress, the color of her eyes</div>
+                </div>
+                <div class="story-gallery-item">
+                    <img src="images/mark-hotel-bw.jpg" alt="The Mark Hotel" loading="lazy">
+                    <div class="story-gallery-caption">The classic black and white striped floor of The Mark Hotel</div>
+                </div>
+                <div class="story-gallery-item">
+                    <img src="images/mark-hotel-m.png" alt="The Mark Hotel entrance" loading="lazy">
+                    <div class="story-gallery-caption">No one leaves until Anna Wintour departs from the iconic &ldquo;M&rdquo; entrance</div>
+                </div>
+                <div class="story-gallery-item story-gallery-tall">
+                    <img src="images/met-stairs-photographers.jpg" alt="Met Gala stairs and photographers" loading="lazy">
+                    <div class="story-gallery-caption">Photographed climbing The Met stairs&mdash;she teases Duane that there is no red carpet</div>
+                </div>
+                <div class="story-gallery-item">
+                    <img src="images/met-ball-stairs.jpg" alt="The Met stairs" loading="lazy">
+                    <div class="story-gallery-caption">The Met stairs, draped in white</div>
+                </div>
+                <div class="story-gallery-item">
+                    <img src="images/supremes-album.jpg" alt="I Hear A Symphony — The Supremes" loading="lazy">
+                    <div class="story-gallery-caption">Duane persuades them to play <em>I Hear A Symphony</em> by The Supremes</div>
+                </div>
+                <div class="story-gallery-item">
+                    <img src="images/album-eat-a-peach.jpg" alt="Eat A Peach — Allman Brothers" loading="lazy">
+                    <div class="story-gallery-caption">His mother&rsquo;s favorite group&mdash;and why he chose the name Duane</div>
+                </div>
+                <div class="story-gallery-item">
+                    <img src="images/bitcoin-earring-1.jpg" alt="Bitcoin earring" loading="lazy">
+                    <div class="story-gallery-caption">The world of crypto, luxury, and power</div>
+                </div>
+                <div class="story-gallery-item">
+                    <img src="images/fashion-nfts.png" alt="Fashion NFTs" loading="lazy">
+                    <div class="story-gallery-caption">Charlotte is in charge of NFTs at Riverbank</div>
+                </div>
+                <div class="story-gallery-item">
+                    <img src="images/bitcoin-angel.jpg" alt="Bitcoin Angel" loading="lazy">
+                    <div class="story-gallery-caption">Where ambition meets desire</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Parallax Divider: Scarf Pattern Texture -->
     <div class="parallax-divider parallax-texture">
-        <div class="parallax-bg" style="background-image: url('images/scarfpattern.jpg');"></div>
+        <div class="parallax-bg" style="background-image: url('images/hermes-scarf-flat.png');"></div>
         <div class="parallax-overlay"></div>
         <div class="parallax-content">
             <span class="divider-ornament"></span>
@@ -2293,12 +2518,15 @@
         </div>
     </section>
 
-    <!-- Behind the Pages (formerly Thoughts) -->
-    <section class="thoughts-section" id="writings">
+    <!-- Ink-Stained (formerly Writings / Thoughts) -->
+    <section class="thoughts-section" id="ink-stained">
         <div class="thoughts-container">
             <div class="section-header scroll-reveal">
-                <h2>From the Author</h2>
-                <h3>Behind the Pages</h3>
+                <div class="ink-stained-pen">
+                    <img src="images/pen-pick-up-sticks.jpg" alt="Drained pens">
+                </div>
+                <h2>Ink-Stained</h2>
+                <p class="ink-stained-quote">&ldquo;To get to the heart of a story, sometimes you have to drain a few dozen pens dry.&rdquo;</p>
             </div>
             <div class="thoughts-grid">
                 <article class="thought-card scroll-reveal">
@@ -2307,14 +2535,14 @@
                     </div>
                     <div class="thought-content">
                         <span class="thought-date">December 2025</span>
-                        <h4>The Door Knocker That Started It All</h4>
+                        <h4>The Florentine Lion</h4>
                         <p>On finding inspiration in Florence, and how a lion became the symbol of Frost House...</p>
-                        <a href="#" class="thought-link">Read more &rarr;</a>
+                        <a href="#florentine-lion" class="thought-link" onclick="document.getElementById('florentine-lion').style.display='block';this.style.display='none';return false;">Read more &rarr;</a>
                     </div>
                 </article>
                 <article class="thought-card scroll-reveal">
                     <div class="thought-image">
-                        <img src="images/scarfwoman.jpg" alt="Charlotte's Scarf">
+                        <img src="images/charlotte-orange-scarf.png" alt="Charlotte in her Herm&egrave;s scarf">
                     </div>
                     <div class="thought-content">
                         <span class="thought-date">November 2025</span>
@@ -2335,28 +2563,51 @@
                     </div>
                 </article>
             </div>
+
+            <!-- The Florentine Lion — Full Essay -->
+            <article class="florentine-lion-essay" id="florentine-lion" style="display:none">
+                <div class="essay-header">
+                    <h3>The Florentine Lion</h3>
+                    <span class="essay-byline">by Francesca Frost</span>
+                </div>
+                <div class="essay-body">
+                    <p>Florence has a way of interrupting your thoughts, at first gently, elegantly, then all at once. I went there for a writing retreat with romantic yearnings to be infused with art and beauty, a notebook filling itself, the Arno stirring bold emotions into lyrical passages. But what I really found was a kind of quiet confrontation. One afternoon wandering in the Palazzo Medici Riccardi to escape the bright, insistent Tuscan sun, I turned a corner and met a lion.</p>
+                    <p>He wasn&rsquo;t roaring. He wasn&rsquo;t mid-pounce. He sat in stone patience beneath an archway, massive paws planted, mane carved into disciplined curls. The air was cool and faintly dusty. The palazzo felt like old money and older secrets. And walking back and forth, I watched this magnificent creature, recognizing something in him. His strength without performance, dominance without noise.</p>
+                    <p>Later I learned Florence&rsquo;s lion has a name: the Marzocco. He is the city&rsquo;s symbol, the emblem of Florentine identity, pride, and civic power. The name traces back to <em>Marte</em>, Mars, the Roman god of war&mdash;Florence&rsquo;s earlier emblem&mdash;so even when the image is &ldquo;only&rdquo; a lion, the lineage speaks of power, conquest, defense, survival. The Marzocco is not a mascot. In Florentine history he was a warning and a promise, depending on which side of the gates you stood.</p>
+                    <p>Months afterward when I needed an emblem for my imprint, for Frost House, my mind went back to that lion in the palazzo. I didn&rsquo;t want a delicate flourish or something merely pretty. I wanted an imprint with backbone. And because my stories move between seduction and threat, tenderness and dominance, I wanted a visual paradox. Something that held both.</p>
+                    <p>In the first designs, he had a frosted mane, white powder like snow. The heat and desire of romance set against frost. Stoic eyes, not sentimental ones. Not a lion &ldquo;in love,&rdquo; but a lion who understands love&rsquo;s cost. But design is also a compromise, especially when you want an image that can be reproduced cleanly, stamped small, printed in black and white, and still look like itself.</p>
+                    <p>The lion became a simpler emblem, more easily repeated and connected to the imprint as a door knocker: Frost House. The frost wasn&rsquo;t only in the mane anyway, it was in the mood, the edge, the discipline. The cold is what makes the heat feel dangerous.</p>
+                    <p>I&rsquo;m aware that romance novels are still often dismissed as soft, feminine, light, a guilty pleasure, a fluffy escape. But that has never matched my experience of love, on the page or in life. It is a negotiation. It is a strategy, a surrender, power dynamics, and vulnerability, the risk of being seen, chosen, and greatest of all, needed. Love can be playful, yes, and it can be absurdly funny. But it is also ferocious. It is warlike in its stakes: what you win, what you lose, what you become. That&rsquo;s what I write.</p>
+                    <p>So the Frost House lion is my quiet rebuttal, sitting there like the Marzocco did, still, watchful, unafraid. A promise that what looks &ldquo;romantic&rdquo; can also be ruthless and what looks &ldquo;cold&rdquo; can conceal the most dangerous kind of heat.</p>
+                </div>
+            </article>
         </div>
     </section>
+
+    <!-- Parallax Divider: Bitcoin Earring -->
+    <div class="parallax-divider parallax-crypto">
+        <div class="parallax-bg" style="background-image: url('images/bitcoin-earring-1.jpg');"></div>
+        <div class="parallax-overlay"></div>
+    </div>
 
     <!-- Parallax Divider: Lily of the Valley -->
     <div class="parallax-divider parallax-lily">
         <div class="parallax-bg" style="background-image: url('images/Ultra_high-end_fashion_editorial_photography_of_lily_of_the_valley_flowers_soft_-3.jpg');"></div>
         <div class="parallax-overlay"></div>
         <div class="parallax-content scroll-reveal">
-            <p class="parallax-quote">"Some flowers bloom in the dark."</p>
+            <p class="parallax-quote">&ldquo;I&rsquo;m not going to be gentle. I know what you need, know what you want. This is you and me.&rdquo;</p>
             <p class="parallax-attribution">Francesca Frost</p>
         </div>
     </div>
 
-    <!-- Newsletter -->
+    <!-- Reader List Signup -->
     <section class="newsletter-section">
         <div class="newsletter-container scroll-reveal">
-            <span class="newsletter-badge">Free Bonus Content</span>
-            <h2>Join the Inner Circle</h2>
-            <p>Subscribe and receive an <strong>exclusive bonus chapter</strong> from The Crypto King's Muse, plus early access to new releases, behind-the-scenes content, and special reader-only giveaways.</p>
+            <h2>Want In?</h2>
+            <p>Join my reader list and I&rsquo;ll send you the first chapter of <em>The Crypto King&rsquo;s Muse</em>&mdash;free. Plus early access to new releases, behind-the-scenes content, and stories that never make it to the page.</p>
             <form class="newsletter-form">
                 <input type="email" placeholder="Enter your email">
-                <button type="submit" class="btn btn-primary">Get My Free Chapter</button>
+                <button type="submit" class="btn btn-primary">Send Me the Chapter</button>
             </form>
             <span class="newsletter-note">No spam, ever. Unsubscribe anytime.</span>
         </div>
@@ -2374,7 +2625,7 @@
                     <h4>Explore</h4>
                     <a href="#book">The Book</a>
                     <a href="#about">About Francesca</a>
-                    <a href="#writings">Behind the Pages</a>
+                    <a href="#ink-stained">Ink-Stained</a>
                 </div>
                 <div class="footer-nav-col">
                     <h4>Connect</h4>

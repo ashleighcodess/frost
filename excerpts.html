@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Francesca Frost | Book Excerpts — The Crypto King's Muse</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Pinyon+Script&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --gold: #c9a227;
+            --gold-dark: #9e7b1a;
+            --black: #0a0a0a;
+            --dark-navy: #0d1117;
+            --cream: #f5f3ef;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--black);
+            color: var(--cream);
+            font-family: 'Crimson Pro', serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Back link */
+        .back-link {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+            z-index: 100;
+        }
+
+        .back-link:hover { opacity: 1; }
+
+        /* Hero */
+        .excerpt-hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 40px 60px;
+            text-align: center;
+        }
+
+        .excerpt-hero h1 {
+            font-family: 'Pinyon Script', cursive;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 400;
+            color: var(--cream);
+            margin-bottom: 8px;
+        }
+
+        .excerpt-hero .book-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            font-style: italic;
+            font-weight: 300;
+            color: var(--gold);
+            opacity: 0.8;
+            margin-bottom: 12px;
+        }
+
+        .excerpt-hero p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            font-weight: 300;
+            color: rgba(245, 243, 239, 0.6);
+            max-width: 460px;
+            line-height: 1.6;
+        }
+
+        /* Excerpt Cards Grid */
+        .excerpts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 40px 100px;
+        }
+
+        .excerpt-card {
+            position: relative;
+            background: rgba(26, 31, 46, 0.3);
+            border: 1px solid rgba(201, 162, 39, 0.1);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+
+        .excerpt-card:hover {
+            border-color: var(--gold-dark);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 30px rgba(201, 162, 39, 0.08);
+        }
+
+        .excerpt-card-image {
+            width: 100%;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+        }
+
+        .excerpt-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .excerpt-card:hover .excerpt-card-image img {
+            transform: scale(1.05);
+        }
+
+        .excerpt-card-content {
+            padding: 28px 24px;
+        }
+
+        .excerpt-card-content h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            font-style: italic;
+            color: var(--cream);
+            margin-bottom: 8px;
+        }
+
+        .excerpt-card-content .excerpt-type {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            opacity: 0.7;
+        }
+
+        /* Lightbox overlay for excerpt images */
+        .excerpt-lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            cursor: pointer;
+            animation: lbFadeIn 0.3s ease;
+        }
+
+        .excerpt-lightbox.active { display: flex; }
+
+        @keyframes lbFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .excerpt-lightbox img {
+            max-width: 90%;
+            max-height: 90vh;
+            object-fit: contain;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+        }
+
+        .excerpt-lightbox .close-btn {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+            background: none;
+            border: 1px solid rgba(201, 162, 39, 0.3);
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .excerpt-lightbox .close-btn:hover {
+            border-color: var(--gold);
+            background: rgba(201, 162, 39, 0.1);
+        }
+
+        /* Bottom CTA */
+        .excerpt-cta {
+            text-align: center;
+            padding: 0 40px 100px;
+        }
+
+        .excerpt-cta a {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            text-decoration: none;
+            border: 1px solid var(--gold-dark);
+            padding: 16px 36px;
+            transition: all 0.3s ease;
+        }
+
+        .excerpt-cta a:hover {
+            background: rgba(201, 162, 39, 0.1);
+            border-color: var(--gold);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .excerpts-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                padding: 20px 24px 80px;
+            }
+
+            .excerpt-hero { padding: 100px 24px 40px; }
+            .back-link { top: 20px; left: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="frost-house.html#book" class="back-link">&larr; Back to Frost House</a>
+
+    <div class="excerpt-hero">
+        <h1>Read a Scene</h1>
+        <p class="book-title">from The Crypto King&rsquo;s Muse</p>
+        <p>Choose a moment. Step inside the story.</p>
+    </div>
+
+    <div class="excerpts-grid">
+        <div class="excerpt-card" onclick="openExcerpt('excerpt-cant-sleep.png')">
+            <div class="excerpt-card-image">
+                <img src="images/excerpt-cant-sleep.png" alt="I Can't Sleep excerpt">
+            </div>
+            <div class="excerpt-card-content">
+                <h3>&ldquo;I Can&rsquo;t Sleep&rdquo;</h3>
+                <span class="excerpt-type">Shadows &amp; Edges</span>
+            </div>
+        </div>
+
+        <div class="excerpt-card" onclick="openExcerpt('excerpt-dirty-sweet.png')">
+            <div class="excerpt-card-image">
+                <img src="images/excerpt-dirty-sweet.png" alt="Dirty Sweet excerpt">
+            </div>
+            <div class="excerpt-card-content">
+                <h3>&ldquo;Dirty Sweet&rdquo;</h3>
+                <span class="excerpt-type">Private Names</span>
+            </div>
+        </div>
+
+        <div class="excerpt-card" onclick="openExcerpt('excerpt-terrace-downpour.png')">
+            <div class="excerpt-card-image">
+                <img src="images/excerpt-terrace-downpour.png" alt="Terrace Downpour excerpt">
+            </div>
+            <div class="excerpt-card-content">
+                <h3>&ldquo;Terrace Downpour&rdquo;</h3>
+                <span class="excerpt-type">Rain &amp; Desire</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="excerpt-cta">
+        <a href="frost-house.html#book">Get the Full Book &rarr;</a>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="excerpt-lightbox" id="excerptLightbox" onclick="closeLightbox()">
+        <button class="close-btn">Close</button>
+        <img id="lightboxImg" src="" alt="Excerpt">
+    </div>
+
+    <script>
+        function openExcerpt(img) {
+            var lb = document.getElementById('excerptLightbox');
+            document.getElementById('lightboxImg').src = 'images/' + img;
+            lb.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('excerptLightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+
+</body>
+</html>
